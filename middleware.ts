@@ -17,9 +17,9 @@ export default authMiddleware({
       return NextResponse.next();
     }
 
-    if (auth.userId && auth.isPublicRoute) {
+    /* if (auth.userId && auth.isPublicRoute) {
       return NextResponse.redirect(new URL("/test", req.url));
-    }
+    } */
 
     // Allow users visiting public routes to access them
     return NextResponse.next();

@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "flex justify-center items-center h-screen",
+            "h-screen text-neutral-800 bg-slate-200",
             inter.className
           )}
         >
