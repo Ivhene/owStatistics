@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, useAuth } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-5/6 pt-20 pb-20 flex justify-center items-center">
       <SignedOut>
         <Button>
           <Link href="/sign-in">Login</Link>
