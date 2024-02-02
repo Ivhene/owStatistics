@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={cn(
-            "h-screen text-neutral-800 bg-slate-200",
+            "h-full text-neutral-800 bg-slate-200",
             inter.className
           )}
         >

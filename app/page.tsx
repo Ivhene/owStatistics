@@ -2,24 +2,12 @@
 
 import Navbar from "@/components/landing/Navbar";
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Image from "next/image";
+import { SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
-
-/* <SignedOut>
-        <Button>
-          <Link href="/sign-in">Login</Link>
-        </Button>
-      </SignedOut>
-      <SignedIn>
-        <Button>
-          <Link href="/test">To restricted page</Link>
-        </Button>
-      </SignedIn> */
 
 export default function Home() {
   return (
-    <div className="w-5/6 flex flex-col max-w-3xl mt-16 m-auto bg-slate-100 text-center shadow-xl shadow-slate-300">
+    <div className="w-5/6 flex flex-col max-w-3xl mt-16 mb-16 m-auto bg-slate-100 text-center shadow-xl shadow-slate-300">
       <Navbar />
       <img src="/landingPageImage.avif" className="w-full" />
       <div className="p-4 flex flex-col gap-2">
