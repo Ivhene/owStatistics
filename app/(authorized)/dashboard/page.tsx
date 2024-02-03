@@ -1,4 +1,5 @@
 "use client";
+import { Heroes } from "@/lib/constants";
 import {
   BarChart,
   Bar,
@@ -18,27 +19,19 @@ export default function DashboardPage() {
         <div className="w-full h-24">Filters</div>
         <div className="w-full h-96">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+            <BarChart data={exampleData}>
+              <CartesianGrid strokeDasharray="1 1" />
+              <XAxis dataKey="hero" />
               <YAxis />
-              <Tooltip />
+              {/* Tooltip */}
               <Legend />
               <Bar
-                dataKey="pv"
+                dataKey="wins"
                 fill="#8884d8"
                 activeBar={<Rectangle fill="pink" stroke="blue" />}
               />
               <Bar
-                dataKey="uv"
+                dataKey="losses"
                 fill="#82ca9d"
                 activeBar={<Rectangle fill="gold" stroke="purple" />}
               />
@@ -92,5 +85,63 @@ const data = [
     uv: 3490,
     pv: 4300,
     amt: 2100,
+  },
+];
+
+const exampleData = [
+  {
+    hero: "winston",
+    wins: 8,
+    losses: 3,
+  },
+  {
+    hero: "reinhardt",
+    wins: 6,
+    losses: 4,
+  },
+  {
+    hero: "d.va",
+    wins: 4,
+    losses: 5,
+  },
+  {
+    hero: "roadhog",
+    wins: 1,
+    losses: 1,
+  },
+  {
+    hero: "doomfist",
+    wins: 1,
+    losses: 0,
+  },
+  {
+    hero: "orisa",
+    wins: 4,
+    losses: 4,
+  },
+  {
+    hero: "zarya",
+    wins: 2,
+    losses: 3,
+  },
+  {
+    hero: "rammatra",
+    wins: 2,
+    losses: 2,
+  },
+  {
+    hero: "junker queen",
+    wins: 1,
+    losses: 4,
+  },
+  {
+    hero: "wrecking ball",
+    wins: 0,
+    losses: 1,
+  },
+  {
+    hero: "mauga",
+    wins: 2,
+    losses: 0,
   },
 ];
