@@ -13,36 +13,38 @@ import {
 
 export default function DashboardPage() {
   return (
-    <div className="w-full h-full bg-slate-100 flex flex-col">
-      <div className="w-full h-24">Filters</div>
-      <div className="w-full h-96">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar
-              dataKey="pv"
-              fill="#8884d8"
-              activeBar={<Rectangle fill="pink" stroke="blue" />}
-            />
-            <Bar
-              dataKey="uv"
-              fill="#82ca9d"
-              activeBar={<Rectangle fill="gold" stroke="purple" />}
-            />
-          </BarChart>
-        </ResponsiveContainer>
+    <div className="flex justify-center h-screen items-center">
+      <div className="w-full h-fit bg-slate-100 m-16">
+        <div className="w-full h-24">Filters</div>
+        <div className="w-full h-96">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar
+                dataKey="pv"
+                fill="#8884d8"
+                activeBar={<Rectangle fill="pink" stroke="blue" />}
+              />
+              <Bar
+                dataKey="uv"
+                fill="#82ca9d"
+                activeBar={<Rectangle fill="gold" stroke="purple" />}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
