@@ -8,7 +8,7 @@ export default function Navbar() {
       <img src="/Overwatch_2_logo.png" className="h-full" />
       <SignedIn>
         <Button className="mr-3 ml-auto mt-auto mb-auto bg-orange-600 font-bold">
-          <Link href="/test">My page</Link>
+          <Link href="/dashboard">My page</Link>
         </Button>
       </SignedIn>
       <SignedOut>
