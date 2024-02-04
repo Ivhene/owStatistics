@@ -1,5 +1,4 @@
 "use client";
-import { Heroes } from "@/lib/constants";
 import {
   BarChart,
   Bar,
@@ -17,14 +16,19 @@ export default function DashboardPage() {
     <div className="flex justify-center h-screen items-center">
       <div className="w-full h-fit bg-slate-100 m-16">
         <div className="w-full h-24">Filters</div>
-        <div className="w-full h-96">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="w-full h-fit">
+          <ResponsiveContainer width="100%" height={500}>
             <BarChart data={exampleData}>
               <CartesianGrid strokeDasharray="1 1" />
-              <XAxis dataKey="hero" />
+              <XAxis
+                dataKey="hero"
+                interval={0}
+                height={60}
+                tick={<CategoryTick />}
+              />
               <YAxis />
               {/* Tooltip */}
-              <Legend />
+              <Legend verticalAlign="top" />
               <Bar
                 dataKey="wins"
                 fill="#8884d8"
@@ -43,104 +47,68 @@ export default function DashboardPage() {
   );
 }
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+const CategoryTick = (props: any) => {
+  console.log(props);
+  return (
+    <foreignObject x={props.x - 20} y={props.y} width={40} height={40}>
+      <img src={props.payload.value} />
+    </foreignObject>
+  );
+};
 
 const exampleData = [
   {
-    hero: "winston",
+    hero: "/heroImages/winston.webp",
     wins: 8,
     losses: 3,
   },
   {
-    hero: "reinhardt",
+    hero: "/heroImages/reinhardt.webp",
     wins: 6,
     losses: 4,
   },
   {
-    hero: "d.va",
+    hero: "/heroImages/dva.webp",
     wins: 4,
     losses: 5,
   },
   {
-    hero: "roadhog",
+    hero: "/heroImages/roadhog.webp",
     wins: 1,
     losses: 1,
   },
   {
-    hero: "doomfist",
+    hero: "/heroImages/doomfist.webp",
     wins: 1,
     losses: 0,
   },
   {
-    hero: "orisa",
+    hero: "/heroImages/orisa.webp",
     wins: 4,
     losses: 4,
   },
   {
-    hero: "zarya",
+    hero: "/heroImages/zarya.webp",
     wins: 2,
     losses: 3,
   },
   {
-    hero: "rammatra",
+    hero: "/heroImages/ramattra.webp",
     wins: 2,
     losses: 2,
   },
   {
-    hero: "junker queen",
+    hero: "/heroImages/junker-queen.webp",
     wins: 1,
     losses: 4,
   },
   {
-    hero: "wrecking ball",
+    hero: "/heroImages/wrecking-ball.webp",
     wins: 0,
     losses: 1,
   },
   {
-    hero: "mauga",
+    hero: "/heroImages/mauga.webp",
     wins: 2,
     losses: 0,
   },
