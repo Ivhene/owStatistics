@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  matchID Int       @id(map: "PK__Game__02C72A2DEBE5B9D0") @default(autoincrement())
+  win     Boolean
+  map     String    @db.VarChar(255)
+  user1   String    @db.VarChar(255)
+  matchup Matchup[]
+}
+
+model Matchup {
+  matchupID  Int     @id(map: "PK__Matchup__E5466D16CF3F8538") @default(autoincrement())
+  heroPlayed String  @db.VarChar(255)
+  win        Boolean
+  enemy1     String  @db.VarChar(255)
+  enemy2     String  @db.VarChar(255)
+  enemy3     String  @db.VarChar(255)
+  enemy4     String  @db.VarChar(255)
+  enemy5     String  @db.VarChar(255)
+  ally1      String  @db.VarChar(255)
+  ally2      String  @db.VarChar(255)
+  ally3      String  @db.VarChar(255)
+  ally4      String  @db.VarChar(255)
+  matchID    Int
+  game       Game    @relation(fields: [matchID], references: [matchID], onUpdate: NoAction, map: "FK__Matchup__matchID__71D1E811")
+}
