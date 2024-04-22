@@ -1,4 +1,4 @@
-import { Hero } from "./types";
+import { Hero, Map } from "./types";
 
 export const Heroes: Hero[] = [
   {
@@ -239,6 +239,171 @@ export const Heroes: Hero[] = [
     name: "Venture",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/7e33dd756c8a1abca519af6c3bf26813f2f81d39885373539efcf8442c4bc647.png",
-    role: "tank",
+    role: "damage",
+  },
+];
+
+export const Maps: Map[] = [
+  {
+    name: "Antartic Peninsula",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/7/7c/Antarctic_Peninsula_1.png/revision/latest/scale-to-width-down/1000?cb=20230208020804",
+    mode: "control",
+  },
+  {
+    name: "Busan",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/09/Overwatch_Busan.jpg/revision/latest/scale-to-width-down/1000?cb=20190412043201",
+    mode: "control",
+  },
+  {
+    name: "Ilios",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/45/Ilios.jpg/revision/latest/scale-to-width-down/1000?cb=20180520062425",
+    mode: "control",
+  },
+  {
+    name: "Lijiang Tower",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/9b/Lijiang_Tower_loading_screen.jpg/revision/latest/scale-to-width-down/1000?cb=20180520062020",
+    mode: "control",
+  },
+  {
+    name: "Nepal",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f3/Nepal_loading_screen.jpg/revision/latest/scale-to-width-down/1000?cb=20190412043102",
+    mode: "control",
+  },
+  {
+    name: "Samoa",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/b/b4/Samoa.jpg/revision/latest?cb=20231002031650",
+    mode: "control",
+  },
+  {
+    name: "Oasis",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/fc/Oasis.jpg/revision/latest/scale-to-width-down/1000?cb=20180520062749",
+    mode: "control",
+  },
+  {
+    name: "Circuit Royale",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/10/Monte_Carlo.jpg/revision/latest/scale-to-width-down/1000?cb=20220926230154",
+    mode: "escort",
+  },
+  {
+    name: "Dorado",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/ec/Dorado-streets2.jpg/revision/latest/scale-to-width-down/1000?cb=20180520045217",
+    mode: "escort",
+  },
+  {
+    name: "Havana",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/93/Havana.png/revision/latest/scale-to-width-down/1000?cb=20190512033804",
+    mode: "escort",
+  },
+  {
+    name: "Junkertown",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e3/Junkertown.jpg/revision/latest/scale-to-width-down/1000?cb=20170822090741",
+    mode: "escort",
+  },
+  {
+    name: "Rialto",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/ff/Rialto.jpg/revision/latest/scale-to-width-down/1000?cb=20190412043512",
+    mode: "escort",
+  },
+  {
+    name: "Route 66",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/a6/Route_66.jpg/revision/latest/scale-to-width-down/1000?cb=20180520050707",
+    mode: "escort",
+  },
+  {
+    name: "Shambali Monastery",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/81/ShambaliEscort.png/revision/latest/scale-to-width-down/1000?cb=20230421235244",
+    mode: "escort",
+  },
+  {
+    name: "Watchpoint: Gibraltar",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/8/8b/Gibraltar.jpg/revision/latest/scale-to-width-down/1000?cb=20180520050120",
+    mode: "escort",
+  },
+  {
+    name: "New Junk City",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/ae/New_Junk_City.jpg/revision/latest?cb=20240419094558",
+    mode: "flashpoint",
+  },
+  {
+    name: "Suravasa",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/6/6f/Suravasa.jpg/revision/latest/scale-to-width-down/1000?cb=20230622084852",
+    mode: "flashpoint",
+  },
+  {
+    name: "Blizzard World",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f8/Blizzard_World.jpg/revision/latest/scale-to-width-down/1000?cb=20190401012157",
+    mode: "hybrid",
+  },
+  {
+    name: "Eichenwalde",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/a/aa/Eichenwalde.png/revision/latest/scale-to-width-down/1000?cb=20190412043329",
+    mode: "hybrid",
+  },
+  {
+    name: "Hollywood",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/2/26/Hollywood-set.jpg/revision/latest/scale-to-width-down/1000?cb=20190506201443",
+    mode: "hybrid",
+  },
+  {
+    name: "King`s Row",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1b/King%27s_Row_concept.jpg/revision/latest/scale-to-width-down/1000?cb=20180520052818",
+    mode: "hybrid",
+  },
+  {
+    name: "Midtown",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4e/N18S6DCTDPG81613669123002.png/revision/latest/scale-to-width-down/1000?cb=20210221175110",
+    mode: "hybrid",
+  },
+  {
+    name: "Numbani",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1b/Numbani_Loading_Screen.jpg/revision/latest/scale-to-width-down/1000?cb=20180520055541",
+    mode: "hybrid",
+  },
+  {
+    name: "Paraíso",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/90/Para%C3%ADso_pvp.jpg/revision/latest/scale-to-width-down/1000?cb=20220630025520",
+    mode: "hybrid",
+  },
+  {
+    name: "Colosseo",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/1/1e/Blizzconline_rome_01.png/revision/latest/scale-to-width-down/1000?cb=20220926222702",
+    mode: "push",
+  },
+  {
+    name: "Esperanca",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/f/f5/PortugalPush.jpg/revision/latest/scale-to-width-down/1000?cb=20220926215956",
+    mode: "push",
+  },
+  {
+    name: "New Queen Street",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/91/Toronto.jpg/revision/latest/scale-to-width-down/1000?cb=20220926222923",
+    mode: "push",
   },
 ];
