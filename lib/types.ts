@@ -11,23 +11,30 @@ export type Map = {
 };
 
 export type Match = {
-  matchId: number;
+  matchID: number;
   win: boolean;
   map: string;
+  matchup: Matchup[];
 };
 
 export type Matchup = {
-  matchupId: number;
-  heroPlayed: Hero;
+  matchupID: number;
+  heroPlayed: string;
   win: boolean;
-  enemy1: Hero;
-  enemy2: Hero;
-  enemy3: Hero;
-  enemy4: Hero;
-  enemy5: Hero;
-  ally1: Hero;
-  ally2: Hero;
-  ally3: Hero;
-  ally4: Hero;
-  match: Match;
+  enemy1: string;
+  enemy2: string;
+  enemy3: string;
+  enemy4: string;
+  enemy5: string;
+  ally1: string;
+  ally2: string;
+  ally3: string;
+  ally4: string;
+  matchID: number;
+};
+
+export type Display = {
+  hero: string;
+  wins: number;
+  losses: number;
 };
