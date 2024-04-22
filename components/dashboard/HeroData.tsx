@@ -8,10 +8,12 @@ import {
   Legend,
   Rectangle,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { CategoryTick } from "./CategoryTick";
+import { Heroes } from "@/lib/constants";
 
 interface HeroDataProps {
   data: Match[];
@@ -19,6 +21,58 @@ interface HeroDataProps {
 
 export function HeroData({ data }: HeroDataProps) {
   const display = displayByRole("tank", data);
+
+  function CustomTooltip() {
+    let allied: number[] = [];
+    let enemy: number[] = [];
+
+    for (let i = 0; i < Heroes.length; i++) {
+      allied[i] = 0;
+      enemy[i] = 0;
+    }
+
+    data.forEach((match) =>
+      match.matchup.forEach((matchup) => {
+        for (let i = 0; i < Heroes.length; i++) {
+          if (
+            matchup.ally1 === Heroes[i].name ||
+            matchup.ally2 === Heroes[i].name ||
+            matchup.ally3 === Heroes[i].name ||
+            matchup.ally4 === Heroes[i].name
+          ) {
+            allied[i]++;
+          }
+
+          if (
+            matchup.enemy1 === Heroes[i].name ||
+            matchup.enemy2 === Heroes[i].name ||
+            matchup.enemy3 === Heroes[i].name ||
+            matchup.enemy4 === Heroes[i].name ||
+            matchup.enemy5 === Heroes[i].name
+          ) {
+            enemy[i]++;
+          }
+        }
+      })
+    );
+
+    function display() {
+      let res = [];
+      for (let i = 0; i < Heroes.length; i++) {
+        res.push(
+          <div className="flex">
+            <img className="w-8 h-8" src={Heroes[i].image} />:{allied[i]}/
+            {enemy[i]}
+          </div>
+        );
+      }
+      return res;
+    }
+
+    return (
+      <div className="grid grid-cols-4 gap-2 bg-white p-2">{display()}</div>
+    );
+  }
 
   return (
     <div className="flex justify-center h-screen items-center">
@@ -35,7 +89,7 @@ export function HeroData({ data }: HeroDataProps) {
                 tick={<CategoryTick />}
               />
               <YAxis />
-              {/* Tooltip */}
+              <Tooltip content={<CustomTooltip />} />
               <Legend verticalAlign="top" />
               <Bar
                 dataKey="wins"
