@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Heroes } from "@/lib/constants";
+import { Heroes, Maps } from "@/lib/constants";
 import PreviousMap from "postcss/lib/previous-map";
 
 interface HeroDataProps {
@@ -49,6 +49,16 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     return res;
   }
 
+  function selectMaps() {
+    let res = [];
+
+    for (const maps of Maps) {
+      res.push(<SelectItem value={maps.name}>{maps.name}</SelectItem>);
+    }
+
+    return res;
+  }
+
   return (
     <div className="flex justify-center h-screen items-center">
       <div className="w-full h-fit bg-slate-100 m-16">
@@ -62,13 +72,24 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             }}
           >
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Theme" />
+              <SelectValue placeholder="Select hero played" />
             </SelectTrigger>
             <SelectContent className="max-h-64">{selectHero()}</SelectContent>
           </Select>
-
           <div>Select Map Type</div>
-          <div>Select Map</div>
+          <Select
+            onValueChange={(value) => {
+              setFilterStates((prev) => ({
+                ...prev,
+                selectMap: value,
+              }));
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select map" />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">{selectMaps()}</SelectContent>
+          </Select>
         </div>
         <HeroDataDisplay data={displayData} />
       </div>
