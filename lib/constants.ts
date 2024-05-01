@@ -2,12 +2,6 @@ import { Hero, Map } from "./types";
 
 export const Heroes: Hero[] = [
   {
-    name: "Mauga",
-    image:
-      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/9ee3f5a62893091d575ec0a0d66df878597086374202c6fc7da2d63320a7d02e.png",
-    role: "tank",
-  },
-  {
     name: "Ana",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/3429c394716364bbef802180e9763d04812757c205e1b4568bc321772096ed86.png",
@@ -110,6 +104,12 @@ export const Heroes: Hero[] = [
     role: "support",
   },
   {
+    name: "Mauga",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/9ee3f5a62893091d575ec0a0d66df878597086374202c6fc7da2d63320a7d02e.png",
+    role: "tank",
+  },
+  {
     name: "Mei",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/1533fcb0ee1d3f9586f84b4067c6f63eca3322c1c661f69bfb41cd9e4f4bcc11.png",
@@ -206,6 +206,12 @@ export const Heroes: Hero[] = [
     role: "damage",
   },
   {
+    name: "Venture",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/7e33dd756c8a1abca519af6c3bf26813f2f81d39885373539efcf8442c4bc647.png",
+    role: "damage",
+  },
+  {
     name: "Widowmaker",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/a714f1cb33cc91c6b5b3e89ffe7e325b99e7c89cc8e8feced594f81305147efe.png",
@@ -234,12 +240,6 @@ export const Heroes: Hero[] = [
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/71cabc939c577581f66b952f9c70891db779251e8e70f29de3c7bf494edacfe4.png",
     role: "support",
-  },
-  {
-    name: "Venture",
-    image:
-      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/7e33dd756c8a1abca519af6c3bf26813f2f81d39885373539efcf8442c4bc647.png",
-    role: "damage",
   },
 ];
 

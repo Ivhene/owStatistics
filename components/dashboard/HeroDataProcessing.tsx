@@ -1,5 +1,5 @@
 "use client";
-import { Match, Matchup } from "@/lib/types";
+import { Match, Matchup, MatchupWithMaps } from "@/lib/types";
 import HeroDataDisplay from "./HeroDataDisplay";
 import { useEffect, useState } from "react";
 import {
@@ -10,7 +10,14 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Heroes, Maps } from "@/lib/constants";
-import PreviousMap from "postcss/lib/previous-map";
+import { addMatchToMatchup } from "@/functions/addMatchToMatchup";
+import {
+  selectHero,
+  selectMaps,
+  selectMapTypes,
+} from "@/functions/selectMapper";
+import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
+import { Button } from "../ui/button";
 
 interface HeroDataProps {
   data: Match[];
@@ -21,48 +28,55 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectHeroPlayed: "",
     selectMapType: "",
     selectMap: "",
+    selectRole: "",
   });
 
-  let matchups: Matchup[] = [];
-  data.forEach((match) =>
-    match.matchup.forEach((matchup) => matchups.push(matchup))
-  );
+  let matchups: MatchupWithMaps[] = addMatchToMatchup(data);
 
-  const [displayData, setDisplayData] = useState<Matchup[]>(matchups);
+  const [displayData, setDisplayData] = useState<MatchupWithMaps[]>(matchups);
 
   useEffect(() => {
+    let filteredMatchups = matchups;
     if (filterStates.selectHeroPlayed !== "") {
-      setDisplayData(
-        matchups.filter(
-          (matchup) => matchup.heroPlayed === filterStates.selectHeroPlayed
-        )
+      filteredMatchups = filteredMatchups.filter(
+        (matchup) => matchup.heroPlayed === filterStates.selectHeroPlayed
       );
     }
+    if (filterStates.selectMap !== "") {
+      filteredMatchups = filteredMatchups.filter(
+        (matchup) => matchup.match.map === filterStates.selectMap
+      );
+    }
+    if (filterStates.selectMapType !== "") {
+      filteredMatchups = filteredMatchups.filter(
+        (matchup) =>
+          findMaptypeOfMap(matchup.match.map) === filterStates.selectMapType
+      );
+    }
+    setDisplayData(filteredMatchups);
   }, [filterStates]);
-
-  function selectHero() {
-    let res = [];
-
-    for (const hero of Heroes) {
-      res.push(<SelectItem value={hero.name}>{hero.name}</SelectItem>);
-    }
-    return res;
-  }
-
-  function selectMaps() {
-    let res = [];
-
-    for (const maps of Maps) {
-      res.push(<SelectItem value={maps.name}>{maps.name}</SelectItem>);
-    }
-
-    return res;
-  }
 
   return (
     <div className="flex justify-center h-screen items-center">
       <div className="w-full h-fit bg-slate-100 m-16">
         <div className="w-full h-24 flex gap-4">
+          <Select
+            onValueChange={(value) => {
+              setFilterStates((prev) => ({
+                ...prev,
+                selectRole: value,
+              }));
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select role" />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">
+              <SelectItem value="tank">Tank</SelectItem>
+              <SelectItem value="damage">Damage</SelectItem>
+              <SelectItem value="support">Support</SelectItem>
+            </SelectContent>
+          </Select>
           <Select
             onValueChange={(value) => {
               setFilterStates((prev) => ({
@@ -74,9 +88,26 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select hero played" />
             </SelectTrigger>
-            <SelectContent className="max-h-64">{selectHero()}</SelectContent>
+            <SelectContent className="max-h-64">
+              {/*<SelectItem value="any">Any</SelectItem>*/}
+              {selectHero()}
+            </SelectContent>
           </Select>
-          <div>Select Map Type</div>
+          <Select
+            onValueChange={(value) => {
+              setFilterStates((prev) => ({
+                ...prev,
+                selectMapType: value,
+              }));
+            }}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select map types" />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">
+              {selectMapTypes()}
+            </SelectContent>
+          </Select>
           <Select
             onValueChange={(value) => {
               setFilterStates((prev) => ({
@@ -90,8 +121,20 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </SelectTrigger>
             <SelectContent className="max-h-64">{selectMaps()}</SelectContent>
           </Select>
+          <Button
+            onClick={() =>
+              setFilterStates({
+                selectHeroPlayed: "",
+                selectMap: "",
+                selectMapType: "",
+                selectRole: "",
+              })
+            }
+          >
+            Clear Filters
+          </Button>
         </div>
-        <HeroDataDisplay data={displayData} />
+        <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
       </div>
     </div>
   );

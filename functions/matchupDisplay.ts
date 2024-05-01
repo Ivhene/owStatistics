@@ -1,9 +1,12 @@
 import { Heroes } from "@/lib/constants";
-import { Display, Match, Matchup } from "@/lib/types";
+import { Display, MatchupWithMaps } from "@/lib/types";
 
 // For opposing tanks
-export function displayByRole(role: string, matchups: Matchup[]) {
-  const heroes = Heroes.filter((hero) => hero.role === role);
+export function displayByRole(role: string, matchups: MatchupWithMaps[]) {
+  let heroes = Heroes;
+  if (role !== "") {
+    heroes = Heroes.filter((hero) => hero.role === role);
+  }
 
   let display: Display[] = [];
 
@@ -12,7 +15,13 @@ export function displayByRole(role: string, matchups: Matchup[]) {
       losses = 0;
 
     matchups.forEach((matchup) => {
-      if (matchup.enemy1 === hero.name) {
+      if (
+        matchup.enemy1 === hero.name ||
+        matchup.enemy2 === hero.name ||
+        matchup.enemy3 === hero.name ||
+        matchup.enemy4 === hero.name ||
+        matchup.enemy5 === hero.name
+      ) {
         matchup.win ? wins++ : losses++;
       }
     });
