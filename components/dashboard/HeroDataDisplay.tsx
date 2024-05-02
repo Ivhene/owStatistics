@@ -25,7 +25,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
 
   return (
     <div className="w-full h-fit">
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="97.5%" height={500}>
         <BarChart data={display}>
           <CartesianGrid strokeDasharray="1 1" />
           <XAxis
@@ -35,7 +35,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
             tick={<CategoryTick />}
           />
           <YAxis />
-          <Tooltip content={<CustomTooltip matchups={data} />} />
+          {/*<Tooltip content={<CustomTooltip matchups={data} />} />*/}
           <Legend verticalAlign="top" />
           <Bar
             dataKey="wins"

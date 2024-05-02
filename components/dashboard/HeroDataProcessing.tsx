@@ -1,5 +1,5 @@
 "use client";
-import { Match, Matchup, MatchupWithMaps } from "@/lib/types";
+import { Match, MatchupWithMaps } from "@/lib/types";
 import HeroDataDisplay from "./HeroDataDisplay";
 import { useEffect, useState } from "react";
 import {
@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Heroes, Maps } from "@/lib/constants";
 import { addMatchToMatchup } from "@/functions/addMatchToMatchup";
 import {
   selectHero,
@@ -18,6 +17,16 @@ import {
 } from "@/functions/selectMapper";
 import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Plus } from "lucide-react";
+import { NewMatchForm } from "./NewMatchForm";
 
 interface HeroDataProps {
   data: Match[];
@@ -59,7 +68,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
   return (
     <div className="flex justify-center h-screen items-center">
       <div className="w-full h-fit bg-slate-100 m-16">
-        <div className="w-full h-24 flex gap-4">
+        <div className="w-full h-fit p-2 flex gap-4">
           <Select
             onValueChange={(value) => {
               setFilterStates((prev) => ({
@@ -88,10 +97,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select hero played" />
             </SelectTrigger>
-            <SelectContent className="max-h-64">
-              {/*<SelectItem value="any">Any</SelectItem>*/}
-              {selectHero()}
-            </SelectContent>
+            <SelectContent className="max-h-64">{selectHero()}</SelectContent>
           </Select>
           <Select
             onValueChange={(value) => {
@@ -133,6 +139,19 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           >
             Clear Filters
           </Button>
+          <Dialog>
+            <DialogTrigger className="h-10">
+              <Button className="flex w-24 bg-orange-500 justify-start gap-2">
+                <Plus /> New
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>New Match</DialogTitle>
+              </DialogHeader>
+              <NewMatchForm />
+            </DialogContent>
+          </Dialog>
         </div>
         <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
       </div>
