@@ -145,7 +145,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 <Plus /> New
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="min-w-fit bg-slate-50 border-none">
               <DialogHeader>
                 <DialogTitle>New Match</DialogTitle>
               </DialogHeader>
