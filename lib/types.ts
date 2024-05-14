@@ -17,6 +17,12 @@ export type Match = {
   matchup: Matchup[];
 };
 
+export type MatchToSave = {
+  win: boolean;
+  map: string;
+  matchup: MatchupToSave[];
+};
+
 export type Matchup = {
   matchupID: number;
   heroPlayed: string;
@@ -31,6 +37,20 @@ export type Matchup = {
   ally3: string;
   ally4: string;
   matchID: number;
+};
+
+export type MatchupToSave = {
+  heroPlayed: string;
+  win: boolean;
+  enemy1: string;
+  enemy2: string;
+  enemy3: string;
+  enemy4: string;
+  enemy5: string;
+  ally1: string;
+  ally2: string;
+  ally3: string;
+  ally4: string;
 };
 
 export type MatchupWithMaps = {
