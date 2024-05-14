@@ -26,9 +26,12 @@ import Link from "next/link";
 import { Checkbox } from "../ui/checkbox";
 import { selectHero } from "@/functions/selectMapper";
 import { MatchupToSave } from "@/lib/types";
+import { useEffect, useState } from "react";
+import { getHeroRole } from "@/functions/getHeroRole";
 
 interface NewMatchupFormProps {
   addMatchup: (matchup: MatchupToSave) => void;
+  close: () => void;
 }
 
 const formSchema = z.object({
@@ -85,7 +88,11 @@ const formSchema = z.object({
     .min(1, "Please select a hero"),
 });
 
-export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
+export function NewMatchupForm({ addMatchup, close }: NewMatchupFormProps) {
+  const [rolePlayed, setRolePlayed] = useState("");
+
+  useEffect(() => console.log(rolePlayed), [rolePlayed]);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -121,7 +128,6 @@ export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
     };
 
     addMatchup(matchup);
-    console.log("matchup form");
   }
 
   return (
@@ -135,7 +141,10 @@ export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
               <FormItem>
                 <FormLabel>Hero played</FormLabel>
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange;
+                    setRolePlayed(getHeroRole(value));
+                  }}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -144,7 +153,7 @@ export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="max-h-64">
-                    {selectHero()}
+                    {selectHero("")}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -170,220 +179,231 @@ export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
             )}
           />
         </div>
-        <div className="flex flex-row gap-2 bg-blue-100 p-6 pb-8">
-          <FormField
-            control={form.control}
-            name="ally1"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ally 1</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="ally2"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ally 2</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="ally3"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ally 3</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="ally4"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Ally 4</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        {rolePlayed !== "" && (
+          <>
+            <div className="flex flex-row gap-2 bg-blue-100 p-6 pb-8">
+              <FormField
+                control={form.control}
+                name="ally1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ally 1</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(rolePlayed === "tank" ? "damage" : "tank")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ally2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ally 2</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ally3"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ally 3</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(
+                          rolePlayed === "support" ? "damage" : "support"
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ally4"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ally 4</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex flex-row gap-2 bg-rose-100 p-6 pb-8">
+              <FormField
+                control={form.control}
+                name="enemy1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enemy 1</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("tank")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enemy 2</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy3"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enemy 3</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy4"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enemy 4</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy5"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Enemy 5</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero("support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </>
+        )}
+        <div className="flex flew-row gap-4 mt-6">
+          <Button className=" bg-orange-600" type="submit">
+            Submit
+          </Button>
+          <Button onClick={close} type="button">
+            Close
+          </Button>
         </div>
-        <div className="flex flex-row gap-2 bg-rose-100 p-6 pb-8">
-          <FormField
-            control={form.control}
-            name="enemy1"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enemy 1</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="enemy2"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enemy 2</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="enemy3"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enemy 3</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="enemy4"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enemy 4</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="enemy5"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Enemy 5</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select a verified email to display" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="max-h-64">
-                    {selectHero()}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button className="mt-6 bg-orange-600" type="submit">
-          Submit
-        </Button>
       </form>
     </Form>
   );

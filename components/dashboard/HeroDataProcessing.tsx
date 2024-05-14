@@ -20,13 +20,14 @@ import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { Plus } from "lucide-react";
 import { NewMatchForm } from "./NewMatchForm";
+import { UserButton } from "@clerk/nextjs";
+import { deleteData } from "@/lib/API";
 
 interface HeroDataProps {
   data: Match[];
@@ -39,6 +40,11 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectMap: "",
     selectRole: "",
   });
+  const [open, setOpen] = useState(false);
+
+  function closeDialog() {
+    setOpen(!open);
+  }
 
   let matchups: MatchupWithMaps[] = addMatchToMatchup(data);
 
@@ -97,7 +103,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select hero played" />
             </SelectTrigger>
-            <SelectContent className="max-h-64">{selectHero()}</SelectContent>
+            <SelectContent className="max-h-64">{selectHero("")}</SelectContent>
           </Select>
           <Select
             onValueChange={(value) => {
@@ -139,17 +145,30 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           >
             Clear Filters
           </Button>
-          <Dialog>
-            <DialogTrigger className="h-10 flex w-32 p-2 bg-orange-500 gap-1 text-white rounded-md items-center justify-center">
+          <Dialog open={open}>
+            <DialogTrigger
+              onClick={() => setOpen(!open)}
+              className="h-10 flex w-32 p-2 bg-orange-500 gap-1 text-white rounded-md items-center justify-center"
+            >
               <Plus className="w-5" /> New match
             </DialogTrigger>
             <DialogContent className="min-w-fit bg-slate-50 border-none">
               <DialogHeader>
                 <DialogTitle>New Match</DialogTitle>
               </DialogHeader>
-              <NewMatchForm />
+              <NewMatchForm close={closeDialog} />
             </DialogContent>
           </Dialog>
+          <Button
+            onClick={async () => {
+              await deleteData();
+              setTimeout(() => window.location.reload(), 500);
+            }}
+            className="bg-red-600"
+          >
+            Delete data
+          </Button>
+          <UserButton afterSignOutUrl="/" />
         </div>
         <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
       </div>

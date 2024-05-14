@@ -1,12 +1,19 @@
 import { SelectItem } from "@/components/ui/select";
 import { Heroes, Maps } from "@/lib/constants";
 
-export function selectHero() {
+export function selectHero(role: string) {
+  const heroes =
+    role === "" ? Heroes : Heroes.filter((hero) => hero.role === role);
+
   let res = [];
 
-  for (const hero of Heroes) {
+  for (const hero of heroes) {
     res.push(
-      <SelectItem key={hero.name} value={hero.name}>
+      <SelectItem
+        className="flex items-center space-x-2"
+        key={hero.name}
+        value={hero.name}
+      >
         {hero.name}
       </SelectItem>
     );

@@ -33,18 +33,24 @@ import { selectMaps } from "@/functions/selectMapper";
 import { useState } from "react";
 import { MatchToSave, MatchupToSave } from "@/lib/types";
 import React from "react";
+import { addNewGame } from "@/lib/API";
+
+interface NewMatchFormProps {
+  close: () => void;
+}
 
 const formSchema = z.object({
   map: z
     .string({
       required_error: "Please select a map",
     })
-    .min(1, "Please select a hero"),
+    .min(1, "Please select a map"),
   win: z.boolean().default(false).optional(),
 });
 
-export function NewMatchForm() {
+export function NewMatchForm({ close }: NewMatchFormProps) {
   const [matchups, setMatchups] = useState<MatchupToSave[]>([]);
+  const [open, setOpen] = useState(false);
   // Form definition
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,32 +60,45 @@ export function NewMatchForm() {
     },
   });
 
+  function CloseDialog() {
+    setOpen(false);
+  }
+
   function AddMatchup(matchup: MatchupToSave) {
     const copy = matchups;
     copy.push(matchup);
     setMatchups(copy);
+    CloseDialog();
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const match: MatchToSave = {
-      map: values.map,
-      win: values.win ?? false,
-      matchup: matchups,
-    };
-    console.log(match);
+    if (matchups.length > 0) {
+      const match: MatchToSave = {
+        map: values.map,
+        win: values.win ?? false,
+        matchup: matchups,
+      };
+
+      close();
+      addNewGame(match);
+      setTimeout(() => window.location.reload(), 500);
+    }
   }
 
   return (
     <React.Fragment>
-      <Dialog>
-        <DialogTrigger className="h-10 flex w-fit p-2 bg-amber-600 gap-1 text-white rounded-md items-center justify-center mt-4">
+      <Dialog open={open}>
+        <DialogTrigger
+          onClick={() => setOpen(!open)}
+          className="h-10 flex w-fit p-2 bg-amber-600 gap-1 text-white rounded-md items-center justify-center mt-4"
+        >
           <Plus className="w-5" /> New Matchup
         </DialogTrigger>
         <DialogContent className="min-w-fit bg-slate-50 border-none">
           <DialogHeader>
             <DialogTitle>New Matchup</DialogTitle>
           </DialogHeader>
-          <NewMatchupForm addMatchup={AddMatchup} />
+          <NewMatchupForm close={CloseDialog} addMatchup={AddMatchup} />
         </DialogContent>
       </Dialog>
       <Form {...form}>
@@ -127,9 +146,14 @@ export function NewMatchForm() {
               )}
             />
           </div>
-          <Button className="mt-6 bg-orange-600" type="submit">
-            Submit
-          </Button>
+          <div className="flex flew-row gap-4 mt-6">
+            <Button className=" bg-orange-600" type="submit">
+              Submit
+            </Button>
+            <Button onClick={close} type="button">
+              Close
+            </Button>
+          </div>
         </form>
       </Form>
     </React.Fragment>
