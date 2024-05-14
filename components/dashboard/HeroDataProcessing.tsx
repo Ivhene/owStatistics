@@ -140,10 +140,8 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             Clear Filters
           </Button>
           <Dialog>
-            <DialogTrigger className="h-10">
-              <Button className="flex w-24 bg-orange-500 justify-start gap-2">
-                <Plus /> New
-              </Button>
+            <DialogTrigger className="h-10 flex w-32 p-2 bg-orange-500 gap-1 text-white rounded-md items-center justify-center">
+              <Plus className="w-5" /> New match
             </DialogTrigger>
             <DialogContent className="min-w-fit bg-slate-50 border-none">
               <DialogHeader>
