@@ -22,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import Link from "next/link";
+import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z.object({
   map: z
@@ -29,6 +31,7 @@ const formSchema = z.object({
       required_error: "Please select a map",
     })
     .min(1, "Please select a hero"),
+  win: z.boolean().default(false).optional(),
   heroplayed: z
     .string({
       required_error: "Please select a hero",
@@ -87,6 +90,7 @@ export function NewMatchForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       map: "",
+      win: false,
       heroplayed: "",
       ally1: "",
       ally2: "",
@@ -110,7 +114,7 @@ export function NewMatchForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div>
+        <div className="flex flex-row gap-2 p-6 bg-orange-100">
           <FormField
             control={form.control}
             name="map"
@@ -136,7 +140,24 @@ export function NewMatchForm() {
               </FormItem>
             )}
           />
-          Win/loss
+          <FormField
+            control={form.control}
+            name="win"
+            render={({ field }) => (
+              <FormItem className="flex flex-col p-2 rounded gap-[2px]">
+                <FormLabel>Win</FormLabel>
+                <FormControl>
+                  <div className="h-10 bg-white border flex justify-center items-center p-3 rounded-sm">
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="w-5 h-5"
+                    />
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
         </div>
         <div className="flex bg-teal-100 p-6 pb-8">
           <FormField
