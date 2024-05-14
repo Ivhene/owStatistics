@@ -24,6 +24,12 @@ import {
 } from "../ui/select";
 import Link from "next/link";
 import { Checkbox } from "../ui/checkbox";
+import { selectHero } from "@/functions/selectMapper";
+import { MatchupToSave } from "@/lib/types";
+
+interface NewMatchupFormProps {
+  addMatchup: (matchup: MatchupToSave) => void;
+}
 
 const formSchema = z.object({
   win: z.boolean().default(false).optional(),
@@ -79,7 +85,7 @@ const formSchema = z.object({
     .min(1, "Please select a hero"),
 });
 
-export function NewMatchupForm() {
+export function NewMatchupForm({ addMatchup }: NewMatchupFormProps) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -100,9 +106,22 @@ export function NewMatchupForm() {
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    const matchup: MatchupToSave = {
+      win: values.win ?? false,
+      heroPlayed: values.heroplayed,
+      ally1: values.ally1,
+      ally2: values.ally2,
+      ally3: values.ally3,
+      ally4: values.ally4,
+      enemy1: values.enemy1,
+      enemy2: values.enemy2,
+      enemy3: values.enemy3,
+      enemy4: values.enemy4,
+      enemy5: values.enemy5,
+    };
+
+    addMatchup(matchup);
+    console.log("matchup form");
   }
 
   return (
@@ -124,10 +143,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -169,10 +186,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -194,10 +209,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -219,10 +232,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -244,10 +255,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -271,10 +280,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -296,10 +303,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -321,10 +326,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -346,10 +349,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -371,10 +372,8 @@ export function NewMatchupForm() {
                       <SelectValue placeholder="Select a verified email to display" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectContent className="max-h-64">
+                    {selectHero()}
                   </SelectContent>
                 </Select>
                 <FormMessage />
