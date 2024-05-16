@@ -2,11 +2,11 @@
 
 import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
-import { MatchToSave } from "./types";
+import { Match, MatchToSave } from "./types";
 
 const prisma = new PrismaClient();
 
-export async function findAllGames() {
+export async function findAllGames(): Promise<any> {
   try {
     const user = await currentUser();
     const res = await prisma.game.findMany({
@@ -16,8 +16,7 @@ export async function findAllGames() {
     return res;
   } catch (error) {
     console.error(error);
-    setTimeout(() => findAllGames(), 10000);
-    return [];
+    return setTimeout(() => findAllGames(), 10000);
   }
 }
 
@@ -65,7 +64,7 @@ export async function deleteData() {
     const data = await findAllGames();
     // Ensure all deletions are complete before revalidation
     await Promise.all(
-      data.map(async (match) => {
+      data.map(async (match: Match) => {
         await Promise.all(
           match.matchup.map(async (matchup) => {
             await prisma.matchup.delete({
