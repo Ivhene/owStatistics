@@ -3,17 +3,22 @@
 import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
 import { MatchToSave } from "./types";
-import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 
 export async function findAllGames() {
-  const user = await currentUser();
-  const res = await prisma.game.findMany({
-    include: { matchup: true },
-    where: { user1: user?.id },
-  });
-  return res;
+  try {
+    const user = await currentUser();
+    const res = await prisma.game.findMany({
+      include: { matchup: true },
+      where: { user1: user?.id },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    setTimeout(() => findAllGames(), 10000);
+    return [];
+  }
 }
 
 export async function addNewGame(match: MatchToSave) {
