@@ -142,7 +142,7 @@ export function NewMatchupForm({ addMatchup, close }: NewMatchupFormProps) {
                 <FormLabel>Hero played</FormLabel>
                 <Select
                   onValueChange={(value) => {
-                    field.onChange;
+                    field.onChange(value);
                     setRolePlayed(getHeroRole(value));
                   }}
                   defaultValue={field.value}
