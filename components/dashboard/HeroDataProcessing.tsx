@@ -42,6 +42,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
   });
   const [open, setOpen] = useState(false);
 
+  // close new match dialog
   function closeDialog() {
     setOpen(!open);
   }
