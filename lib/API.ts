@@ -6,7 +6,11 @@ import { Match, MatchToSave } from "./types";
 
 const prisma = new PrismaClient();
 
-export async function findAllGames(): Promise<any> {
+async function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function findAllGames(): Promise<Match[]> {
   try {
     const user = await currentUser();
     const res = await prisma.game.findMany({
@@ -16,7 +20,8 @@ export async function findAllGames(): Promise<any> {
     return res;
   } catch (error) {
     console.error(error);
-    return setTimeout(() => findAllGames(), 10000);
+    await delay(10000);
+    return findAllGames();
   }
 }
 
