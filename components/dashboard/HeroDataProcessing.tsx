@@ -73,8 +73,8 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
   }, [filterStates]);
 
   return (
-    <div className="flex justify-center h-screen items-center">
-      <div className="w-full h-fit bg-slate-100 m-16">
+    <div className="flex flex-col items-center h-screen">
+      <div className="w-full h-fit bg-slate-100 p-4">
         <div className="w-full h-fit p-2 flex gap-4">
           <Select
             onValueChange={(value) => {
@@ -171,8 +171,8 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           </Button>
           <UserButton afterSignOutUrl="/" />
         </div>
-        <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
       </div>
+      <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
     </div>
   );
 }
