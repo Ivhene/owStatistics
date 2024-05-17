@@ -71,7 +71,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
     CloseDialog();
   }
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     if (matchups.length > 0) {
       const match: MatchToSave = {
         map: values.map,
@@ -80,8 +80,8 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       };
 
       close();
-      addNewGame(match);
-      setTimeout(() => window.location.reload(), 500);
+      await addNewGame(match);
+      window.location.reload();
     }
   }
 

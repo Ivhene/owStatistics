@@ -163,7 +163,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           <Button
             onClick={async () => {
               await deleteData();
-              setTimeout(() => window.location.reload(), 500);
+              window.location.reload();
             }}
             className="bg-red-600"
           >
