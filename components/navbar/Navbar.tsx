@@ -26,7 +26,7 @@ export function Navbar() {
 
   return (
     <div className="h-16 flex items-center justify-between bg-slate-200">
-      <nav className="h-full flex flex-row items-center">
+      <nav className="h-full flex flex-row items-center text-xs sm:text-sm lg:text-base 2xl:text-lg">
         <Link href="/" className="hover:cursor-pointer h-full w-auto p-2">
           <Image
             alt="Overwatch 2 logo"
@@ -59,6 +59,12 @@ export function Navbar() {
           className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
         >
           Any Player With
+        </Link>
+        <Link
+          href="/dashboard"
+          className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
+        >
+          Played on maps
         </Link>
       </nav>
 
