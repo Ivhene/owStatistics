@@ -32,6 +32,7 @@ import { getHeroRole } from "@/functions/getHeroRole";
 interface NewMatchupFormProps {
   addMatchup: (matchup: MatchupToSave) => void;
   close: () => void;
+  lastMatchup: MatchupToSave | null;
 }
 
 const formSchema = z.object({
@@ -88,8 +89,14 @@ const formSchema = z.object({
     .min(1, "Please select a hero"),
 });
 
-export function NewMatchupForm({ addMatchup, close }: NewMatchupFormProps) {
-  const [rolePlayed, setRolePlayed] = useState("");
+export function NewMatchupForm({
+  addMatchup,
+  close,
+  lastMatchup,
+}: NewMatchupFormProps) {
+  const [rolePlayed, setRolePlayed] = useState(
+    !lastMatchup ? "" : getHeroRole(lastMatchup.heroPlayed)
+  );
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => console.log(rolePlayed), [rolePlayed]);
@@ -99,16 +106,16 @@ export function NewMatchupForm({ addMatchup, close }: NewMatchupFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       win: false,
-      heroplayed: "",
-      ally1: "",
-      ally2: "",
-      ally3: "",
-      ally4: "",
-      enemy1: "",
-      enemy2: "",
-      enemy3: "",
-      enemy4: "",
-      enemy5: "",
+      heroplayed: !lastMatchup ? "" : lastMatchup.heroPlayed,
+      ally1: !lastMatchup ? "" : lastMatchup.ally1,
+      ally2: !lastMatchup ? "" : lastMatchup.ally2,
+      ally3: !lastMatchup ? "" : lastMatchup.ally3,
+      ally4: !lastMatchup ? "" : lastMatchup.ally4,
+      enemy1: !lastMatchup ? "" : lastMatchup.enemy1,
+      enemy2: !lastMatchup ? "" : lastMatchup.enemy2,
+      enemy3: !lastMatchup ? "" : lastMatchup.enemy3,
+      enemy4: !lastMatchup ? "" : lastMatchup.enemy4,
+      enemy5: !lastMatchup ? "" : lastMatchup.enemy5,
     },
   });
 
@@ -174,7 +181,9 @@ export function NewMatchupForm({ addMatchup, close }: NewMatchupFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-64">
-                      {selectHero("")}
+                      {selectHero(
+                        !lastMatchup ? "" : getHeroRole(lastMatchup.heroPlayed)
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />
