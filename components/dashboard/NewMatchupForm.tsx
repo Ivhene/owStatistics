@@ -128,11 +128,11 @@ export function NewMatchupForm({
       values.heroplayed === values.ally3 ||
       values.heroplayed === values.ally4
     ) {
-      setErrorMessage("Duplicate allies");
+      setErrorMessage("* Duplicate allies");
       return;
     }
     if (values.enemy2 === values.enemy3 || values.enemy4 === values.enemy5) {
-      setErrorMessage("Duplicate enemies");
+      setErrorMessage("* Duplicate enemies");
       return;
     }
     const matchup: MatchupToSave = {
@@ -154,9 +154,7 @@ export function NewMatchupForm({
 
   return (
     <>
-      <div className="text-red-600 text-lg font-semibold">
-        {"* " + errorMessage}
-      </div>
+      <div className="text-red-600 text-lg font-semibold">{errorMessage}</div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <div className="flex bg-teal-100 p-6 pb-8">
