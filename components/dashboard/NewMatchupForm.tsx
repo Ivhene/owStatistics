@@ -99,8 +99,6 @@ export function NewMatchupForm({
   );
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => console.log(rolePlayed), [rolePlayed]);
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

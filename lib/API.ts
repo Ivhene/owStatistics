@@ -27,7 +27,6 @@ export async function findAllGames(): Promise<Match[]> {
 
 export async function addNewGame(match: MatchToSave) {
   try {
-    console.log(match);
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
       data: {
@@ -56,7 +55,6 @@ export async function addNewGame(match: MatchToSave) {
             matchID: savedMatch.matchID,
           },
         });
-        console.log(res);
       })
     );
   } catch (error) {
