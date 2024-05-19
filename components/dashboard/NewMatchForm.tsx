@@ -89,7 +89,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
   }
 
   return (
-    <div className="flex flex-col h-fit max-h-screen overflow-y-auto">
+    <div className="flex flex-col h-fit max-h-screen ">
       <div className="h-auto">
         <Dialog open={open}>
           <DialogTrigger
