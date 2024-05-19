@@ -27,7 +27,10 @@ export function Navbar() {
   return (
     <div className="h-16 flex items-center justify-between bg-slate-200">
       <nav className="h-full flex flex-row items-center text-xs sm:text-sm lg:text-base 2xl:text-lg">
-        <Link href="/" className="hover:cursor-pointer h-full w-auto p-2">
+        <Link
+          href="/"
+          className="hover:cursor-pointer h-full w-auto p-2 hover:bg-slate-600"
+        >
           <Image
             alt="Overwatch 2 logo"
             src="/Overwatch_2_logo.png"
@@ -76,7 +79,7 @@ export function Navbar() {
           >
             <Plus className="w-5" /> New match
           </DialogTrigger>
-          <DialogContent className="min-w-fit bg-slate-50 border-none">
+          <DialogContent className="min-w-fit bg-slate-50 border-none max-h-screen">
             <DialogHeader>
               <DialogTitle>New Match</DialogTitle>
             </DialogHeader>
