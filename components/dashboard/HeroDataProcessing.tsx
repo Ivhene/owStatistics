@@ -17,6 +17,8 @@ import {
 } from "@/functions/selectMapper";
 import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
 import { Button } from "../ui/button";
+import { filterByHero } from "@/functions/filterFunctions";
+import { changeTarget } from "@/functions/changeTarget";
 
 interface HeroDataProps {
   data: Match[];
@@ -28,6 +30,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectMapType: "",
     selectMap: "",
     selectRole: "",
+    selectTarget: "you",
   });
 
   let matchups: MatchupWithMaps[] = addMatchToMatchup(data);
@@ -35,10 +38,12 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
   const [displayData, setDisplayData] = useState<MatchupWithMaps[]>(matchups);
 
   useEffect(() => {
-    let filteredMatchups = matchups;
+    let filteredMatchups = changeTarget(filterStates.selectTarget, matchups);
     if (filterStates.selectHeroPlayed !== "") {
-      filteredMatchups = filteredMatchups.filter(
-        (matchup) => matchup.heroPlayed === filterStates.selectHeroPlayed
+      filteredMatchups = filterByHero(
+        filterStates.selectHeroPlayed,
+        filterStates.selectTarget,
+        filteredMatchups
       );
     }
     if (filterStates.selectMap !== "") {
@@ -59,6 +64,24 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
         <div className="w-full h-fit p-2 flex gap-4">
+          <Select
+            onValueChange={(value) => {
+              setFilterStates((prev) => ({
+                ...prev,
+                selectTarget: value,
+              }));
+            }}
+            defaultValue="you"
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select target" />
+            </SelectTrigger>
+            <SelectContent className="max-h-64">
+              <SelectItem value="you">You</SelectItem>
+              <SelectItem value="others">Other Players</SelectItem>
+              <SelectItem value="both">All</SelectItem>
+            </SelectContent>
+          </Select>
           <Select
             onValueChange={(value) => {
               setFilterStates((prev) => ({
@@ -124,6 +147,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 selectMap: "",
                 selectMapType: "",
                 selectRole: "",
+                selectTarget: "you",
               })
             }
           >

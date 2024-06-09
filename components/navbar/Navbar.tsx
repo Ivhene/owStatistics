@@ -51,24 +51,6 @@ export function Navbar() {
         >
           Played With
         </Link>
-        <Link
-          href="/dashboard"
-          className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
-        >
-          Any Player Against
-        </Link>
-        <Link
-          href="/dashboard"
-          className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
-        >
-          Any Player With
-        </Link>
-        <Link
-          href="/dashboard"
-          className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
-        >
-          Played on maps
-        </Link>
       </nav>
 
       <div className="pr-4 flex items-center space-x-4">
