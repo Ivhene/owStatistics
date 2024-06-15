@@ -9,24 +9,23 @@ import {
   YAxis,
 } from "recharts";
 import { CategoryTick } from "./CategoryTick";
-import {
-  displayByRoleAgainst,
-  displayByRoleWith,
-} from "@/functions/matchupDisplay";
-import { MatchupWithMaps } from "@/lib/types";
-import { usePathname } from "next/navigation";
+import { displayMaps } from "@/functions/matchupDisplay";
+import { Match } from "@/lib/types";
 
 interface HeroDataDisplayProps {
-  data: MatchupWithMaps[];
+  data: Match[];
   role: string;
+  maptype: string;
 }
 
-export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
-  const path = usePathname();
-  const display =
-    path === "/dashboard/against"
-      ? displayByRoleAgainst(role, data)
-      : displayByRoleWith(role, data);
+export default function MapDataDisplay({
+  data,
+  role,
+  maptype,
+}: HeroDataDisplayProps) {
+  const display = displayMaps(maptype, role, data);
+
+  console.log(display);
 
   return (
     <div className="w-full h-full bg-slate-50">

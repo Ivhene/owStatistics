@@ -40,16 +40,22 @@ export function Navbar() {
           />
         </Link>
         <Link
-          href="/dashboard"
+          href="/dashboard/against"
           className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
         >
           Played Against
         </Link>
         <Link
-          href="/dashboard"
+          href="/dashboard/with"
           className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
         >
           Played With
+        </Link>
+        <Link
+          href="/dashboard/maps"
+          className="h-full flex items-center justify-center hover:cursor-pointer hover:bg-slate-600 hover:text-white p-4 border-r"
+        >
+          Maps
         </Link>
       </nav>
 

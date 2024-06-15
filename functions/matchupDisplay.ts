@@ -1,8 +1,10 @@
-import { Heroes } from "@/lib/constants";
-import { Display, MatchupWithMaps } from "@/lib/types";
+import { Heroes, Maps } from "@/lib/constants";
+import { Display, Match, MatchupWithMaps } from "@/lib/types";
 
-// For opposing tanks
-export function displayByRole(role: string, matchups: MatchupWithMaps[]) {
+export function displayByRoleAgainst(
+  role: string,
+  matchups: MatchupWithMaps[]
+) {
   let heroes = Heroes;
   if (role !== "") {
     heroes = Heroes.filter((hero) => hero.role === role);
@@ -26,6 +28,57 @@ export function displayByRole(role: string, matchups: MatchupWithMaps[]) {
       }
     });
     display.push({ hero: hero.image, wins: wins, losses: losses });
+  });
+
+  return display;
+}
+
+export function displayByRoleWith(role: string, matchups: MatchupWithMaps[]) {
+  let heroes = Heroes;
+  if (role !== "") {
+    heroes = Heroes.filter((hero) => hero.role === role);
+  }
+
+  let display: Display[] = [];
+
+  heroes.forEach((hero) => {
+    let wins = 0,
+      losses = 0;
+
+    matchups.forEach((matchup) => {
+      if (
+        matchup.ally1 === hero.name ||
+        matchup.ally2 === hero.name ||
+        matchup.ally3 === hero.name ||
+        matchup.ally4 === hero.name
+      ) {
+        matchup.win ? wins++ : losses++;
+      }
+    });
+    display.push({ hero: hero.image, wins: wins, losses: losses });
+  });
+
+  return display;
+}
+
+export function displayMaps(maptype: string, role: string, matches: Match[]) {
+  let maps = Maps;
+  if (maptype !== "") {
+    maps = Maps.filter((map) => map.mode === maptype);
+  }
+
+  let display: Display[] = [];
+
+  Maps.forEach((map) => {
+    let wins = 0,
+      losses = 0;
+
+    matches.forEach((match) => {
+      if (match.map === map.name) {
+        match.win ? wins++ : losses++;
+      }
+    });
+    display.push({ hero: map.image, wins: wins, losses: losses });
   });
 
   return display;

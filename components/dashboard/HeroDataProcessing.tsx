@@ -1,6 +1,5 @@
 "use client";
 import { Match, MatchupWithMaps } from "@/lib/types";
-import HeroDataDisplay from "./HeroDataDisplay";
 import { useEffect, useState } from "react";
 import {
   Select,
@@ -19,6 +18,8 @@ import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
 import { Button } from "../ui/button";
 import { filterByHero } from "@/functions/filterFunctions";
 import { changeTarget } from "@/functions/changeTarget";
+import { usePathname } from "next/navigation";
+import HeroDataDisplay from "./HeroDataDisplay";
 
 interface HeroDataProps {
   data: Match[];
@@ -29,7 +30,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectHeroPlayed: "",
     selectMapType: "",
     selectMap: "",
-    selectRole: "",
+    selectRole: "tank",
     selectTarget: "you",
   });
 
@@ -60,11 +61,22 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     setDisplayData(filteredMatchups);
   }, [filterStates]);
 
+  const handleClearFilters = () => {
+    setFilterStates({
+      selectHeroPlayed: "",
+      selectMap: "",
+      selectMapType: "",
+      selectRole: filterStates.selectRole,
+      selectTarget: filterStates.selectTarget,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
         <div className="w-full h-fit p-2 flex gap-4">
           <Select
+            value={filterStates.selectTarget}
             onValueChange={(value) => {
               setFilterStates((prev) => ({
                 ...prev,
@@ -83,12 +95,14 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </SelectContent>
           </Select>
           <Select
+            value={filterStates.selectRole}
             onValueChange={(value) => {
               setFilterStates((prev) => ({
                 ...prev,
                 selectRole: value,
               }));
             }}
+            defaultValue="tank"
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select role" />
@@ -100,6 +114,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </SelectContent>
           </Select>
           <Select
+            value={filterStates.selectHeroPlayed}
             onValueChange={(value) => {
               setFilterStates((prev) => ({
                 ...prev,
@@ -113,6 +128,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             <SelectContent className="max-h-64">{selectHero("")}</SelectContent>
           </Select>
           <Select
+            value={filterStates.selectMapType}
             onValueChange={(value) => {
               setFilterStates((prev) => ({
                 ...prev,
@@ -128,6 +144,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </SelectContent>
           </Select>
           <Select
+            value={filterStates.selectMap}
             onValueChange={(value) => {
               setFilterStates((prev) => ({
                 ...prev,
@@ -138,24 +155,14 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select map" />
             </SelectTrigger>
-            <SelectContent className="max-h-64">{selectMaps()}</SelectContent>
+            <SelectContent className="max-h-64">
+              {selectMaps(filterStates.selectMapType)}
+            </SelectContent>
           </Select>
-          <Button
-            onClick={() =>
-              setFilterStates({
-                selectHeroPlayed: "",
-                selectMap: "",
-                selectMapType: "",
-                selectRole: "",
-                selectTarget: "you",
-              })
-            }
-          >
-            Clear Filters
-          </Button>
+          <Button onClick={handleClearFilters}>Clear Filters</Button>
         </div>
       </div>
-      <HeroDataDisplay role={filterStates.selectRole} data={displayData} />
+      <HeroDataDisplay data={displayData} role={filterStates.selectRole} />
     </div>
   );
 }

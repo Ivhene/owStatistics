@@ -21,13 +21,18 @@ export function selectHero(role: string) {
   return res;
 }
 
-export function selectMaps() {
+export function selectMaps(maptype: string) {
   let res = [];
+  let maps = Maps;
 
-  for (const maps of Maps) {
+  if (maptype !== "") {
+    maps = maps.filter((map) => map.mode === maptype);
+  }
+
+  for (const map of maps) {
     res.push(
-      <SelectItem key={maps.name} value={maps.name}>
-        {maps.name}
+      <SelectItem key={map.name} value={map.name}>
+        {map.name}
       </SelectItem>
     );
   }
