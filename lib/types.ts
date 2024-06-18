@@ -74,3 +74,9 @@ export type Display = {
   wins: number;
   losses: number;
 };
+
+export type DisplayMap = {
+  map: string;
+  wins: number;
+  losses: number;
+};

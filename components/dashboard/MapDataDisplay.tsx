@@ -32,12 +32,7 @@ export default function MapDataDisplay({
       <ResponsiveContainer width="97.5%" height={"100%"}>
         <BarChart data={display}>
           <CartesianGrid strokeDasharray="1 1" />
-          <XAxis
-            dataKey="hero"
-            interval={0}
-            height={60}
-            tick={<CategoryTick />}
-          />
+          <XAxis dataKey="map" interval={0} height={60} />
           <YAxis />
           {/*<Tooltip content={<CustomTooltip matchups={data} />} />*/}
           <Legend verticalAlign="top" />
