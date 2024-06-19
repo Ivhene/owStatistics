@@ -1,5 +1,8 @@
-// Place this code at the top of your main component or _app.js file
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 
+// Muting warnings
 const originalWarn = console.warn;
 console.warn = function (message, ...args) {
   if (typeof message === "string" && message.includes("Image with src")) {
@@ -8,26 +11,24 @@ console.warn = function (message, ...args) {
   originalWarn.apply(console, [message, ...args]);
 };
 
-// Your other imports and code
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-
 export const CategoryTick = (props: any) => {
   const [size, setSize] = useState(50);
 
+  const path = usePathname();
+
   const updateSize = () => {
     if (window.innerWidth >= 1500) {
-      setSize(45); // xl and up
+      path === "/dashboard/maps" ? setSize(90) : setSize(45); // xl and up
     } else if (window.innerWidth >= 1280) {
-      setSize(40); // lg
+      path === "/dashboard/maps" ? setSize(80) : setSize(40); // lg
     } else if (window.innerWidth >= 1024) {
-      setSize(35); // lg
+      path === "/dashboard/maps" ? setSize(65) : setSize(35); // lg
     } else if (window.innerWidth >= 768) {
-      setSize(30); // md
+      path === "/dashboard/maps" ? setSize(50) : setSize(30); // md
     } else if (window.innerWidth >= 640) {
-      setSize(18); // sm
+      path === "/dashboard/maps" ? setSize(35) : setSize(18); // sm
     } else {
-      setSize(12); // smaller
+      path === "/dashboard/maps" ? setSize(30) : setSize(12); // smaller
     }
   };
 

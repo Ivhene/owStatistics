@@ -78,7 +78,7 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
         match.win ? wins++ : losses++;
       }
     });
-    display.push({ map: map.name, wins: wins, losses: losses });
+    display.push({ map: map.image, wins: wins, losses: losses });
   });
 
   return display;

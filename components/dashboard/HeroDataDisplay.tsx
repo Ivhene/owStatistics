@@ -29,7 +29,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
       : displayByRoleWith(role, data);
 
   return (
-    <div className="w-full h-full bg-slate-50">
+    <div className="w-full h-full bg-slate-50 pb-2">
       <ResponsiveContainer width="97.5%" height={"100%"}>
         <BarChart data={display}>
           <CartesianGrid strokeDasharray="1 1" />
