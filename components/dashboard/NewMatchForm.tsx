@@ -130,7 +130,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="max-h-64">
-                        {selectMaps()}
+                        {selectMaps("")}
                       </SelectContent>
                     </Select>
                     <FormMessage />
