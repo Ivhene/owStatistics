@@ -406,4 +406,10 @@ export const Maps: Map[] = [
       "https://static.wikia.nocookie.net/overwatch_gamepedia/images/9/91/Toronto.jpg/revision/latest/scale-to-width-down/1000?cb=20220926222923",
     mode: "push",
   },
+  {
+    name: "Runasapi",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/07/Runasapi_2.jpg/revision/latest/scale-to-width-down/350?cb=20240619034643",
+    mode: "push",
+  },
 ];
