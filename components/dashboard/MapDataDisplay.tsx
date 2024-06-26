@@ -46,7 +46,7 @@ export default function MapDataDisplay({
           />
           <Bar
             dataKey="draws"
-            fill="#FF3333"
+            fill="#FFC91A"
             activeBar={<Rectangle fill="yellow" stroke="yellow" />}
           />
           <Bar
