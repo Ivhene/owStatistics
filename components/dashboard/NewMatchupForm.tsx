@@ -33,6 +33,7 @@ interface NewMatchupFormProps {
   addMatchup: (matchup: MatchupToSave) => void;
   close: () => void;
   lastMatchup: MatchupToSave | null;
+  role: string;
 }
 
 const formSchema = z.object({
@@ -93,10 +94,9 @@ export function NewMatchupForm({
   addMatchup,
   close,
   lastMatchup,
+  role,
 }: NewMatchupFormProps) {
-  const [rolePlayed, setRolePlayed] = useState(
-    !lastMatchup ? "" : getHeroRole(lastMatchup.heroPlayed)
-  );
+  const [rolePlayed, setRolePlayed] = useState(role);
   const [errorMessage, setErrorMessage] = useState("");
 
   // 1. Define your form.
@@ -167,7 +167,6 @@ export function NewMatchupForm({
                   <Select
                     onValueChange={(value) => {
                       field.onChange(value);
-                      setRolePlayed(getHeroRole(value));
                     }}
                     defaultValue={field.value}
                   >
@@ -177,9 +176,7 @@ export function NewMatchupForm({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-64">
-                      {selectHero(
-                        !lastMatchup ? "" : getHeroRole(lastMatchup.heroPlayed)
-                      )}
+                      {selectHero(role)}
                     </SelectContent>
                   </Select>
                   <FormMessage />

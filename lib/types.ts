@@ -12,13 +12,15 @@ export type Map = {
 
 export type Match = {
   matchID: number;
-  win: boolean;
   map: string;
+  result: string;
+  role: string;
   matchup: Matchup[];
 };
 
 export type MatchToSave = {
-  win: boolean;
+  result: string;
+  role: string;
   map: string;
   matchup: MatchupToSave[];
 };
@@ -79,4 +81,5 @@ export type DisplayMap = {
   map: string;
   wins: number;
   losses: number;
+  draws: number;
 };

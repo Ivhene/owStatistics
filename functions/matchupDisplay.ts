@@ -71,14 +71,19 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
 
   maps.forEach((map) => {
     let wins = 0,
-      losses = 0;
+      losses = 0,
+      draws = 0;
 
     matches.forEach((match) => {
       if (match.map === map.name) {
-        match.win ? wins++ : losses++;
+        match.result === "win"
+          ? wins++
+          : match.result === "loss"
+          ? losses++
+          : draws++;
       }
     });
-    display.push({ map: map.image, wins: wins, losses: losses });
+    display.push({ map: map.image, wins: wins, losses: losses, draws: draws });
   });
 
   return display;

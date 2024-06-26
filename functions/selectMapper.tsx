@@ -58,3 +58,22 @@ export function selectMapTypes() {
 
   return res;
 }
+
+export function selectResult() {
+  const results = ["win", "draw", "loss"];
+
+  let res = [];
+
+  for (const result of results) {
+    res.push(
+      <SelectItem
+        className="flex items-center space-x-2"
+        key={result}
+        value={result}
+      >
+        {result}
+      </SelectItem>
+    );
+  }
+  return res;
+}

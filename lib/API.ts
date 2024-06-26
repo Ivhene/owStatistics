@@ -31,7 +31,8 @@ export async function addNewGame(match: MatchToSave) {
     const savedMatch = await prisma.game.create({
       data: {
         map: match.map,
-        win: match.win,
+        result: match.result,
+        role: match.role,
         user1: user?.id ?? "",
       },
     });

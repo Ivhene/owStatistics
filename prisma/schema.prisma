@@ -9,9 +9,10 @@ datasource db {
 
 model Game {
   matchID Int       @id(map: "PK__Game__02C72A2DEBE5B9D0") @default(autoincrement())
-  win     Boolean
   map     String    @db.VarChar(255)
   user1   String    @db.VarChar(255)
+  result  String    @db.VarChar(4)
+  role    String    @db.VarChar(7)
   matchup Matchup[]
 }
 

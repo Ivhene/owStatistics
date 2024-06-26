@@ -15,6 +15,7 @@ import {
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
@@ -28,7 +29,7 @@ import {
 } from "../ui/dialog";
 import { Plus, Trash } from "lucide-react";
 import { NewMatchupForm } from "./NewMatchupForm";
-import { selectMaps } from "@/functions/selectMapper";
+import { selectMaps, selectResult } from "@/functions/selectMapper";
 import { useState } from "react";
 import { MatchToSave, MatchupToSave } from "@/lib/types";
 import React from "react";
@@ -45,7 +46,16 @@ const formSchema = z.object({
       required_error: "Please select a map",
     })
     .min(1, "Please select a map"),
-  win: z.boolean().default(false).optional(),
+  result: z
+    .string({
+      required_error: "Please select a result",
+    })
+    .min(1, "Please select a result"),
+  role: z
+    .string({
+      required_error: "Please select a role",
+    })
+    .min(1, "Please select a role"),
 });
 
 export function NewMatchForm({ close }: NewMatchFormProps) {
@@ -57,7 +67,8 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       map: "",
-      win: false,
+      result: "",
+      role: "",
     },
   });
 
@@ -78,7 +89,8 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
     if (matchups.length > 0) {
       const match: MatchToSave = {
         map: values.map,
-        win: values.win ?? false,
+        result: values.result,
+        role: values.role,
         matchup: matchups,
       };
 
@@ -88,13 +100,19 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
     }
   }
 
+  function checkValues() {
+    const values = form.getValues();
+    return values.map !== "" && values.result !== "" && values.role !== "";
+  }
+
   return (
     <div className="flex flex-col h-fit max-h-screen ">
       <div className="h-auto">
         <Dialog open={open}>
           <DialogTrigger
             onClick={() => setOpen(!open)}
-            className="h-10 flex w-fit p-2 bg-amber-600 gap-1 text-white rounded-md items-center justify-center mt-4"
+            disabled={!checkValues()}
+            className="h-10 flex w-fit p-2 disabled:bg-opacity-75 disabled:border-neutral-900 bg-amber-600 gap-1 text-white rounded-md items-center justify-center mt-4"
           >
             <Plus className="w-5" /> New Matchup
           </DialogTrigger>
@@ -108,6 +126,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
               lastMatchup={
                 matchups.length === 0 ? null : matchups[matchups.length - 1]
               }
+              role={form.getValues().role}
             />
           </DialogContent>
         </Dialog>
@@ -137,21 +156,53 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
-                name="win"
+                name="role"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col p-2 rounded gap-[2px]">
-                    <FormLabel>Win</FormLabel>
-                    <FormControl>
-                      <div className="h-10 bg-white border flex justify-center items-center p-3 rounded-sm">
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          className="w-5 h-5"
-                        />
-                      </div>
-                    </FormControl>
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={matchups.length > 0}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        <SelectItem value="tank">Tank</SelectItem>
+                        <SelectItem value="damage">Damage</SelectItem>
+                        <SelectItem value="support">Support</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="result"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Result</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select result" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectResult()}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
