@@ -72,9 +72,21 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     });
   };
 
+  const path = usePathname();
+
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
+        <h2 className="pl-2 font-medium text-lg text-slate-700">
+          {path === "/dashboard/against"
+            ? "Results playing against heroes"
+            : "Results playing with heroes"}
+        </h2>
+        <p className="m-2 border-b-2 border-slate-200 text-sm text-slate-500 pb-1">
+          {path === "/dashboard/against"
+            ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero"
+            : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team"}
+        </p>
         <div className="w-full h-fit p-2 flex gap-4">
           <div className="flex flex-col gap-2">
             <Label>Select Data Target</Label>

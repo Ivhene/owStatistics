@@ -47,6 +47,15 @@ export function MapDataProcessing({ data }: HeroDataProps) {
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
+        <h2 className="pl-2 font-medium text-lg text-slate-700">
+          Results on maps
+        </h2>
+        <p className="m-2 border-b-2 border-slate-200 text-sm text-slate-500 pb-1">
+          Result of matches played on a map. The win bar (green on the left)
+          means you won the match on this map. The draw bar (yellow in the
+          middle) means you drew the match on this map. The loss bar (red on the
+          right) means you lost the match on this map.
+        </p>
         <div className="w-full h-fit p-2 flex gap-4">
           <div className="flex flex-col gap-2">
             <Label>Select Role</Label>
