@@ -77,18 +77,18 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
-        <h2 className="pl-2 font-medium text-lg text-slate-700">
+        <h2 className="pl-2 font-medium text-base md:text-lg text-slate-700">
           {path === "/dashboard/against"
             ? "Results playing against heroes"
             : "Results playing with heroes"}
         </h2>
-        <p className="m-2 border-b-2 border-slate-200 text-sm text-slate-500 pb-1">
+        <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-slate-500 pb-1">
           {path === "/dashboard/against"
             ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero"
             : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team"}
         </p>
-        <div className="w-full h-fit p-2 flex gap-4">
-          <div className="flex flex-col gap-2">
+        <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label>Select Data Target</Label>
             <Select
               value={filterStates.selectTarget}
@@ -100,7 +100,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="you"
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px]">
                 <SelectValue placeholder="Select target" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
@@ -110,7 +110,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label>Select Role</Label>
             <Select
               value={filterStates.selectRole}
@@ -122,7 +122,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="tank"
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px]">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
@@ -132,7 +132,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label>Select Hero</Label>
             <Select
               value={filterStates.selectHeroPlayed}
@@ -143,7 +143,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px]">
                 <SelectValue placeholder="Select hero played" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
@@ -151,7 +151,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label>Select Map Type</Label>
             <Select
               value={filterStates.selectMapType}
@@ -163,7 +163,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px]">
                 <SelectValue placeholder="Select map types" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
@@ -171,7 +171,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label>Select Map</Label>
             <Select
               value={filterStates.selectMap}
@@ -182,7 +182,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px]">
                 <SelectValue placeholder="Select map" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
@@ -190,7 +190,10 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectContent>
             </Select>
           </div>
-          <Button className="mb-0 mt-auto" onClick={handleClearFilters}>
+          <Button
+            className="mb-0 mt-auto lg:w-36 xl:w-[180px]"
+            onClick={handleClearFilters}
+          >
             Clear Filters
           </Button>
         </div>
