@@ -79,9 +79,10 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
 
   const path = usePathname();
 
-  const wins = data.filter((match) => match.result === "win").length;
-  const draws = data.filter((match) => match.result === "draw").length;
-  const losses = data.filter((match) => match.result === "loss").length;
+  const matches = Array.from(new Set(displayData.map((item) => item.match)));
+  const wins = matches.filter((match) => match.result === "win").length;
+  const draws = matches.filter((match) => match.result === "draw").length;
+  const losses = matches.filter((match) => match.result === "loss").length;
 
   return (
     <div className="flex flex-col items-center h-screen">
@@ -95,7 +96,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           {path === "/dashboard/against"
             ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero."
             : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team."}
-          {` Data collected from ${data.length} matches (${wins}W/${draws}D/${losses}L). Win/loss record is personal`}
+          {` Data collected from ${matches.length} matches (${wins}W/${draws}D/${losses}L). Win/loss record is personal`}
         </p>
         <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
@@ -196,7 +197,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 <SelectValue placeholder="Select map" />
               </SelectTrigger>
               <SelectContent className="max-h-64">
-                {selectMaps(filterStates.selectMapType, data)}
+                {selectMaps(filterStates.selectMapType, matches)}
               </SelectContent>
             </Select>
           </div>
