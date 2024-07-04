@@ -34,6 +34,11 @@ export function MapDataProcessing({ data }: HeroDataProps) {
         (match) => findMaptypeOfMap(match.map) === filterStates.selectMapType
       );
     }
+    if (filterStates.selectRole !== "") {
+      matches = matches.filter(
+        (match) => match.role === filterStates.selectRole
+      );
+    }
     setDisplayData(matches);
   }, [filterStates]);
 
