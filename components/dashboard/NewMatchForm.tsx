@@ -30,7 +30,7 @@ import {
 import { Plus, Trash } from "lucide-react";
 import { NewMatchupForm } from "./NewMatchupForm";
 import { selectMaps, selectResult } from "@/functions/selectMapper";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MatchToSave, MatchupToSave } from "@/lib/types";
 import React from "react";
 import { addNewGame } from "@/lib/API";
@@ -61,6 +61,8 @@ const formSchema = z.object({
 export function NewMatchForm({ close }: NewMatchFormProps) {
   const [matchups, setMatchups] = useState<MatchupToSave[]>([]);
   const [open, setOpen] = useState(false);
+  const [submitClickCount, setSubmitClickCount] = useState(0);
+  const [closeClickCount, setCloseClickCount] = useState(0);
 
   // Form definition
   const form = useForm<z.infer<typeof formSchema>>({
@@ -71,6 +73,24 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       role: "",
     },
   });
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        event.target instanceof HTMLElement &&
+        !event.target.closest(".submit-button") &&
+        !event.target.closest(".close-button")
+      ) {
+        setSubmitClickCount(0);
+        setCloseClickCount(0);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   function CloseDialog() {
     setOpen(false);
@@ -97,6 +117,22 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       close();
       await addNewGame(match);
       window.location.reload();
+    }
+  }
+
+  function handleSubmit() {
+    if (submitClickCount === 0) {
+      setSubmitClickCount(1);
+    } else {
+      form.handleSubmit(onSubmit)();
+    }
+  }
+
+  function handleClose() {
+    if (closeClickCount === 0) {
+      setCloseClickCount(1);
+    } else {
+      close();
     }
   }
 
@@ -131,7 +167,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
           </DialogContent>
         </Dialog>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mt-6">
+          <form className="w-full mt-6">
             <div className="flex flex-row gap-4">
               <FormField
                 control={form.control}
@@ -208,11 +244,19 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
               />
             </div>
             <div className="flex flex-row gap-4 mt-6">
-              <Button className=" bg-orange-600" type="submit">
-                Submit
+              <Button
+                className="bg-orange-600 submit-button"
+                type="button"
+                onClick={handleSubmit}
+              >
+                {submitClickCount === 0 ? "Submit" : "Confirm Submit"}
               </Button>
-              <Button onClick={close} type="button">
-                Close
+              <Button
+                className="close-button"
+                type="button"
+                onClick={handleClose}
+              >
+                {closeClickCount === 0 ? "Close" : "Confirm Close"}
               </Button>
             </div>
           </form>

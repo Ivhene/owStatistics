@@ -28,7 +28,7 @@ export function selectHero(role: string, matchups?: MatchupWithMaps[]) {
 
 export function selectMaps(maptype: string, matches?: Match[]) {
   let res = [];
-  let maps = Maps;
+  let maps = Maps.sort((a, b) => (a.name > b.name ? 1 : -1));
 
   if (maptype !== "") {
     maps = maps.filter((map) => map.mode === maptype);

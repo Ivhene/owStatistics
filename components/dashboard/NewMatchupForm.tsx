@@ -98,6 +98,26 @@ export function NewMatchupForm({
 }: NewMatchupFormProps) {
   const [rolePlayed, setRolePlayed] = useState(role);
   const [errorMessage, setErrorMessage] = useState("");
+  const [submitClickCount, setSubmitClickCount] = useState(0);
+  const [closeClickCount, setCloseClickCount] = useState(0);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        event.target instanceof HTMLElement &&
+        !event.target.closest(".submit-button") &&
+        !event.target.closest(".close-button")
+      ) {
+        setSubmitClickCount(0);
+        setCloseClickCount(0);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -152,11 +172,27 @@ export function NewMatchupForm({
     addMatchup(matchup);
   }
 
+  function handleSubmit() {
+    if (submitClickCount === 0) {
+      setSubmitClickCount(1);
+    } else {
+      form.handleSubmit(onSubmit)();
+    }
+  }
+
+  function handleClose() {
+    if (closeClickCount === 0) {
+      setCloseClickCount(1);
+    } else {
+      close();
+    }
+  }
+
   return (
     <>
       <div className="text-red-600 text-lg font-semibold">{errorMessage}</div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+        <form className="w-full">
           <div className="flex bg-teal-100 p-6 pb-8">
             <FormField
               control={form.control}
@@ -421,12 +457,20 @@ export function NewMatchupForm({
               </div>
             </>
           )}
-          <div className="flex flew-row gap-4 mt-6">
-            <Button className=" bg-orange-600" type="submit">
-              Submit
+          <div className="flex flex-row gap-4 mt-6">
+            <Button
+              className="bg-orange-600 submit-button"
+              type="button"
+              onClick={handleSubmit}
+            >
+              {submitClickCount === 0 ? "Submit" : "Confirm Submit"}
             </Button>
-            <Button onClick={close} type="button">
-              Close
+            <Button
+              className="close-button"
+              type="button"
+              onClick={handleClose}
+            >
+              {closeClickCount === 0 ? "Close" : "Confirm Close"}
             </Button>
           </div>
         </form>
