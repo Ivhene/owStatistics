@@ -74,6 +74,11 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
 
   const path = usePathname();
 
+  const matches = Array.from(new Set(displayData.map((item) => item.match)));
+  const wins = matches.filter((match) => match.result === "win").length;
+  const draws = matches.filter((match) => match.result === "draw").length;
+  const losses = matches.filter((match) => match.result === "loss").length;
+
   return (
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
@@ -84,8 +89,9 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
         </h2>
         <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-slate-500 pb-1">
           {path === "/dashboard/against"
-            ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero"
-            : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team"}
+            ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero."
+            : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team."}
+          {` Data collected from ${matches.length} matches (${wins}W/${draws}D/${losses}L). Win loss record is personal`}
         </p>
         <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
