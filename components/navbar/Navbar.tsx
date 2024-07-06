@@ -63,6 +63,12 @@ export function Navbar() {
           >
             Maps
           </Link>
+          <Link
+            href="/mypage/matches"
+            className="h-full flex items-center justify-start hover:cursor-pointer hover:bg-slate-600 hover:text-white p-2 md:p-4 border-r text-left"
+          >
+            Matches
+          </Link>
         </nav>
         <div className="sm:hidden">
           <button
