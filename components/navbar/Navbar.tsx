@@ -46,19 +46,19 @@ export function Navbar() {
             />
           </Link>
           <Link
-            href="/dashboard/against"
+            href="/mypage/against"
             className="h-full items-center justify-start hover:cursor-pointer hover:bg-slate-600 hover:text-white p-2 md:p-4 border-r flex text-left"
           >
             Played Against
           </Link>
           <Link
-            href="/dashboard/with"
+            href="/mypage/with"
             className="h-full flex items-center justify-start hover:cursor-pointer hover:bg-slate-600 hover:text-white p-2 md:p-4 border-r text-left"
           >
             Played With
           </Link>
           <Link
-            href="/dashboard/maps"
+            href="/mypage/maps"
             className="h-full flex items-center justify-start hover:cursor-pointer hover:bg-slate-600 hover:text-white p-2 md:p-4 border-r text-left"
           >
             Maps
