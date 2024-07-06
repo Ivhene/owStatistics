@@ -5,7 +5,41 @@ export function changeTarget(target: string, matchups: MatchupWithMaps[]) {
 
   if (target === "others") return findOthers(matchups);
 
+  if (target === "teamIncludingYou") return findTeam(matchups, true);
+
+  if (target === "teamExcludingYou") return findTeam(matchups, false);
+
+  if (target === "enemy") return findEnemyTeam(matchups);
+
   return [...matchups, ...findOthers(matchups)];
+}
+
+function findTeam(matchups: MatchupWithMaps[], includeYou: boolean) {
+  let newMatchups: MatchupWithMaps[] = [];
+
+  matchups.forEach((matchup) => {
+    includeYou ? newMatchups.push(matchup) : null;
+    newMatchups.push(addAlly1(matchup));
+    newMatchups.push(addAlly2(matchup));
+    newMatchups.push(addAlly3(matchup));
+    newMatchups.push(addAlly4(matchup));
+  });
+
+  return newMatchups;
+}
+
+function findEnemyTeam(matchups: MatchupWithMaps[]) {
+  let newMatchups: MatchupWithMaps[] = [];
+
+  matchups.forEach((matchup) => {
+    newMatchups.push(addEnemy1(matchup));
+    newMatchups.push(addEnemy2(matchup));
+    newMatchups.push(addEnemy3(matchup));
+    newMatchups.push(addEnemy4(matchup));
+    newMatchups.push(addEnemy5(matchup));
+  });
+
+  return newMatchups;
 }
 
 function findOthers(matchups: MatchupWithMaps[]) {

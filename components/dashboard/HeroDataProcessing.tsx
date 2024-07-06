@@ -94,8 +94,8 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
         </h2>
         <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-slate-500 pb-1">
           {path === "/dashboard/against"
-            ? "Results of matchups when up against each hero. The win bar (green on the left) means that you won the matchup against this hero, while loss bar (red on the right) means that you lost the matchup against this hero."
-            : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that you won the matchup with this hero on your team, while loss bar (red on the right) means that you lost the matchup with this hero on your team."}
+            ? "Results of matchups when up against each hero. The win bar (green on the left) means that the data target won the matchup against this hero, while loss bar (red on the right) means that the data target lost the matchup against this hero."
+            : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that the data target won the matchup with this hero on your team, while loss bar (red on the right) means that the data target lost the matchup with this hero on your team."}
           {` Data collected from ${matches.length} matches (${wins}W/${draws}D/${losses}L). Win/loss record is personal`}
         </p>
         <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
@@ -116,6 +116,11 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               </SelectTrigger>
               <SelectContent className="max-h-64">
                 <SelectItem value="you">You</SelectItem>
+                <SelectItem value="teamExcludingYou">Allies</SelectItem>
+                <SelectItem value="teamIncludingYou">
+                  Allies (including you)
+                </SelectItem>
+                <SelectItem value="enemy">Enemies</SelectItem>
                 <SelectItem value="others">Other Players</SelectItem>
                 <SelectItem value="both">All</SelectItem>
               </SelectContent>
