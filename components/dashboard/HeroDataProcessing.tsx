@@ -88,12 +88,12 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     <div className="flex flex-col items-center h-screen">
       <div className="w-full h-fit bg-slate-100 p-4">
         <h2 className="pl-2 font-medium text-base md:text-lg text-slate-700">
-          {path === "/dashboard/against"
+          {path === "/mypage/against"
             ? "Results playing against heroes"
             : "Results playing with heroes"}
         </h2>
         <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-slate-500 pb-1">
-          {path === "/dashboard/against"
+          {path === "/mypage/against"
             ? "Results of matchups when up against each hero. The win bar (green on the left) means that the data target won the matchup against this hero, while loss bar (red on the right) means that the data target lost the matchup against this hero."
             : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that the data target won the matchup with this hero on your team, while loss bar (red on the right) means that the data target lost the matchup with this hero on your team."}
           {` Data collected from ${matches.length} matches (${wins}W/${draws}D/${losses}L). Win/loss record is personal`}

@@ -24,7 +24,7 @@ interface HeroDataDisplayProps {
 export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
   const path = usePathname();
   const display =
-    path === "/dashboard/against"
+    path === "/mypage/against"
       ? displayByRoleAgainst(role, data)
       : displayByRoleWith(role, data);
 
