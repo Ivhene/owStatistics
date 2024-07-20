@@ -21,6 +21,7 @@ import { changeTarget } from "@/functions/changeTarget";
 import { usePathname } from "next/navigation";
 import HeroDataDisplay from "./HeroDataDisplay";
 import { Label } from "../ui/label";
+import { X } from "lucide-react";
 
 interface HeroDataProps {
   data: Match[];
@@ -86,13 +87,13 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
 
   return (
     <div className="flex flex-col items-center h-screen">
-      <div className="w-full h-fit bg-slate-100 p-4">
-        <h2 className="pl-2 font-medium text-base md:text-lg text-slate-700">
+      <div className="w-full h-fit bg-extra_background p-4">
+        <h2 className="pl-2 font-medium text-base md:text-lg text-overwatch_blue_main">
           {path === "/mypage/against"
             ? "Results playing against heroes"
             : "Results playing with heroes"}
         </h2>
-        <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-slate-500 pb-1">
+        <p className="m-2 border-b-2 border-slate-200 text-xs md:text-sm text-overwatch_gray_main pb-1">
           {path === "/mypage/against"
             ? "Results of matchups when up against each hero. The win bar (green on the left) means that the data target won the matchup against this hero, while loss bar (red on the right) means that the data target lost the matchup against this hero."
             : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that the data target won the matchup with this hero on your team, while loss bar (red on the right) means that the data target lost the matchup with this hero on your team."}
@@ -100,7 +101,9 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
         </p>
         <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
-            <Label>Select Data Target</Label>
+            <Label className="text-overwatch_blue_main">
+              Select Data Target
+            </Label>
             <Select
               value={filterStates.selectTarget}
               onValueChange={(value) => {
@@ -111,10 +114,10 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="you"
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select target" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 <SelectItem value="you">You</SelectItem>
                 <SelectItem value="teamExcludingYou">Allies</SelectItem>
                 <SelectItem value="teamIncludingYou">
@@ -127,7 +130,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
-            <Label>Select Role</Label>
+            <Label className="text-overwatch_blue_main">Select Role</Label>
             <Select
               value={filterStates.selectRole}
               onValueChange={(value) => {
@@ -138,10 +141,10 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="tank"
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 <SelectItem value="tank">Tank</SelectItem>
                 <SelectItem value="damage">Damage</SelectItem>
                 <SelectItem value="support">Support</SelectItem>
@@ -149,7 +152,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
-            <Label>Select Hero</Label>
+            <Label className="text-overwatch_blue_main">Select Hero</Label>
             <Select
               value={filterStates.selectHeroPlayed}
               onValueChange={(value) => {
@@ -159,16 +162,16 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select hero played" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 {selectHero("", matchups)}
               </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
-            <Label>Select Map Type</Label>
+            <Label className="text-overwatch_blue_main">Select Map Type</Label>
             <Select
               value={filterStates.selectMapType}
               onValueChange={(value) => {
@@ -179,16 +182,16 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select map types" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 {selectMapTypes()}
               </SelectContent>
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
-            <Label>Select Map</Label>
+            <Label className="text-overwatch_blue_main">Select Map</Label>
             <Select
               value={filterStates.selectMap}
               onValueChange={(value) => {
@@ -198,19 +201,19 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select map" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 {selectMaps(filterStates.selectMapType, matches)}
               </SelectContent>
             </Select>
           </div>
           <Button
-            className="mb-0 mt-auto lg:w-36 xl:w-[180px]"
+            className="mb-0 mt-auto lg:w-36 xl:w-[180px] gap-1 bg-overwatch_blue_main"
             onClick={handleClearFilters}
           >
-            Clear Filters
+            <X /> Clear Filters
           </Button>
         </div>
       </div>

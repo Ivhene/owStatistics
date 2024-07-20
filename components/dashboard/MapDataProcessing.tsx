@@ -13,6 +13,7 @@ import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
 import { Button } from "../ui/button";
 import MapDataDisplay from "./MapDataDisplay";
 import { Label } from "../ui/label";
+import { X } from "lucide-react";
 
 interface HeroDataProps {
   data: Match[];
@@ -51,11 +52,11 @@ export function MapDataProcessing({ data }: HeroDataProps) {
 
   return (
     <div className="flex flex-col items-center h-screen">
-      <div className="w-full h-fit bg-slate-100 p-4">
-        <h2 className="pl-2 font-medium text-lg text-slate-700">
+      <div className="w-full h-fit bg-extra_background p-4">
+        <h2 className="pl-2 font-medium text-lg text-overwatch_blue_main">
           Results on maps
         </h2>
-        <p className="m-2 border-b-2 border-slate-200 text-sm text-slate-500 pb-1">
+        <p className="m-2 border-b-2 border-slate-200 text-sm text-overwatch_gray_main pb-1">
           Result of matches played on a map. The win bar (green on the left)
           means you won the match on this map. The draw bar (yellow in the
           middle) means you drew the match on this map. The loss bar (red on the
@@ -63,7 +64,7 @@ export function MapDataProcessing({ data }: HeroDataProps) {
         </p>
         <div className="w-full h-fit p-2 flex gap-4">
           <div className="flex flex-col gap-2">
-            <Label>Select Role</Label>
+            <Label className="text-overwatch_blue_main">Select Role</Label>
             <Select
               value={filterStates.selectRole}
               onValueChange={(value) => {
@@ -73,10 +74,10 @@ export function MapDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 <SelectItem value="tank">Tank</SelectItem>
                 <SelectItem value="damage">Damage</SelectItem>
                 <SelectItem value="support">Support</SelectItem>
@@ -84,7 +85,7 @@ export function MapDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <div className="flex flex-col gap-2">
-            <Label>Select Map Type</Label>
+            <Label className="text-overwatch_blue_main">Select Map Type</Label>
             <Select
               value={filterStates.selectMapType}
               onValueChange={(value) => {
@@ -94,16 +95,19 @@ export function MapDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select map types" />
               </SelectTrigger>
-              <SelectContent className="max-h-64">
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
                 {selectMapTypes()}
               </SelectContent>
             </Select>
           </div>
-          <Button className="mt-auto mb-0" onClick={handleClearFilters}>
-            Clear Filters
+          <Button
+            className="mb-0 mt-auto lg:w-36 xl:w-[180px] gap-1 bg-overwatch_blue_main"
+            onClick={handleClearFilters}
+          >
+            <X /> Clear Filters
           </Button>
         </div>
       </div>

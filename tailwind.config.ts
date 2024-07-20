@@ -19,6 +19,13 @@ const config = {
     },
     extend: {
       colors: {
+        orange_highlighter: "#f99e1a",
+        overwatch_gray_main: "#43484c",
+        overwatch_blue_main: "#405275",
+        main_background: "#fffffe",
+        extra_background: "#f2f6f9",
+        ally_color: "#00B4FF",
+        enemy_color: "#FF4040",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
