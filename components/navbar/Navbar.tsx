@@ -31,12 +31,12 @@ export function Navbar() {
   return (
     <div className="flex-col">
       <div className="h-8 sm:h-12 md:h-16 flex items-center justify-between bg-overwatch_blue_main sm:p-0">
-        <nav className="h-full hidden sm:flex flex-row items-center text-xs sm:text-sm lg:text-base 2xl:text-lg mr-2 sm:ml-0 text-white">
+        <nav className="h-full hidden md:flex flex-row items-center text-xs sm:text-sm lg:text-base 2xl:text-lg mr-2 sm:ml-0 text-white">
           <NavbarLinks />
         </nav>
-        <div className="sm:hidden">
+        <div className="md:hidden">
           <button
-            className="inline-flex items-center justify-center p-2 rounded-md bg-overwatch_blue_main hover:bg-overwatch_blue_main"
+            className="inline-flex items-center justify-center p-2 rounded-md"
             onClick={toggleMobileNavbar}
           >
             {mobileSidebarOpen ? <X /> : <AlignJustify />}
@@ -73,7 +73,7 @@ export function Navbar() {
         </div>
       </div>
       {mobileSidebarOpen && (
-        <nav className="sm:hidden text-xs justify-start">
+        <nav className="md:hidden sm:text-base text-xs justify-start">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <NavbarLinks />
           </div>
