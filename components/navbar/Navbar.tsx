@@ -52,9 +52,11 @@ export function Navbar() {
               <Plus className="hidden sm:block sm:h-4 sm:w-4 md:h-5 md:w-5" />{" "}
               New match
             </DialogTrigger>
-            <DialogContent className="min-w-fit bg-slate-50 border-none max-h-screen">
+            <DialogContent className="min-w-fit bg-extra_background border-none max-h-screen">
               <DialogHeader>
-                <DialogTitle>New Match</DialogTitle>
+                <DialogTitle className="text-overwatch_blue_main">
+                  New Match
+                </DialogTitle>
               </DialogHeader>
               <NewMatchForm close={closeDialog} />
             </DialogContent>

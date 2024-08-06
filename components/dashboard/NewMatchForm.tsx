@@ -142,19 +142,21 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
   }
 
   return (
-    <div className="flex flex-col h-fit max-h-screen ">
+    <div className="flex flex-col h-fit max-h-screen">
       <div className="h-auto">
         <Dialog open={open}>
           <DialogTrigger
             onClick={() => setOpen(!open)}
             disabled={!checkValues()}
-            className="h-10 flex w-fit p-2 disabled:bg-opacity-75 disabled:border-neutral-900 bg-amber-600 gap-1 text-white rounded-md items-center justify-center mt-4"
+            className="h-10 flex w-fit p-2 disabled:bg-opacity-75 disabled:border-neutral-900 bg-orange_highlighter gap-1 text-white rounded-md items-center justify-center mt-4"
           >
             <Plus className="w-5" /> New Matchup
           </DialogTrigger>
-          <DialogContent className="min-w-fit bg-slate-50 border-none">
+          <DialogContent className="min-w-fit bg-extra_background border-none overflow-auto max-h-screen">
             <DialogHeader>
-              <DialogTitle>New Matchup</DialogTitle>
+              <DialogTitle className="text-overwatch_blue_main">
+                New Matchup
+              </DialogTitle>
             </DialogHeader>
             <NewMatchupForm
               close={CloseDialog}
@@ -168,19 +170,21 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
         </Dialog>
         <Form {...form}>
           <form className="w-full mt-6">
-            <div className="flex flex-row gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="map"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Map</FormLabel>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Map
+                    </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="xl:w-[180px] w-36">
                           <SelectValue placeholder="Select map" />
                         </SelectTrigger>
                       </FormControl>
@@ -198,14 +202,16 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                 name="role"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Role
+                    </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       disabled={matchups.length > 0}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="xl:w-[180px] w-36">
                           <SelectValue placeholder="Select role" />
                         </SelectTrigger>
                       </FormControl>
@@ -224,13 +230,15 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                 name="result"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Result</FormLabel>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Result
+                    </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger className="xl:w-[180px] w-36">
                           <SelectValue placeholder="Select result" />
                         </SelectTrigger>
                       </FormControl>
@@ -245,14 +253,14 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
             </div>
             <div className="flex flex-row gap-4 mt-6">
               <Button
-                className="bg-orange-600 submit-button"
+                className="bg-orange_highlighter active:bg-orange_highlighter hover:bg-orange_highlighter submit-button"
                 type="button"
                 onClick={handleSubmit}
               >
                 {submitClickCount === 0 ? "Submit" : "Confirm Submit"}
               </Button>
               <Button
-                className="close-button"
+                className="close-button bg-overwatch_blue_main active:bg-overwatch_blue_main hover:bg-overwatch_blue_main"
                 type="button"
                 onClick={handleClose}
               >

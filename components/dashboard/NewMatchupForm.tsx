@@ -8,26 +8,21 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import Link from "next/link";
 import { Checkbox } from "../ui/checkbox";
 import { selectHero } from "@/functions/selectMapper";
 import { MatchupToSave } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { getHeroRole } from "@/functions/getHeroRole";
 
 interface NewMatchupFormProps {
   addMatchup: (matchup: MatchupToSave) => void;
@@ -193,13 +188,15 @@ export function NewMatchupForm({
       <div className="text-red-600 text-lg font-semibold">{errorMessage}</div>
       <Form {...form}>
         <form className="w-full">
-          <div className="flex bg-teal-100 p-6 pb-8">
+          <div className="flex lg:flex sm:grid sm:grid-cols-2 mb-6">
             <FormField
               control={form.control}
               name="heroplayed"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Hero played</FormLabel>
+                  <FormLabel className="text-overwatch_blue_main">
+                    Hero played
+                  </FormLabel>
                   <Select
                     onValueChange={(value) => {
                       field.onChange(value);
@@ -224,9 +221,11 @@ export function NewMatchupForm({
               name="win"
               render={({ field }) => (
                 <FormItem className="flex flex-col p-2 rounded gap-[2px]">
-                  <FormLabel>Win</FormLabel>
+                  <FormLabel className="text-overwatch_blue_main">
+                    Win
+                  </FormLabel>
                   <FormControl>
-                    <div className="h-10 bg-white border flex justify-center items-center p-3 rounded-sm">
+                    <div className="h-10 bg-white border flex justify-center items-center p-3 rounded-sm w-10">
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
@@ -240,13 +239,15 @@ export function NewMatchupForm({
           </div>
           {rolePlayed !== "" && (
             <>
-              <div className="flex flex-row gap-2 bg-blue-100 p-6 pb-8">
+              <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2 mb-6">
                 <FormField
                   control={form.control}
                   name="ally1"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ally 1</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Ally 1
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -271,7 +272,9 @@ export function NewMatchupForm({
                   name="ally2"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ally 2</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Ally 2
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -294,7 +297,9 @@ export function NewMatchupForm({
                   name="ally3"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ally 3</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Ally 3
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -319,7 +324,9 @@ export function NewMatchupForm({
                   name="ally4"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Ally 4</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Ally 4
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -338,13 +345,15 @@ export function NewMatchupForm({
                   )}
                 />
               </div>
-              <div className="flex flex-row gap-2 bg-rose-100 p-6 pb-8">
+              <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2">
                 <FormField
                   control={form.control}
                   name="enemy1"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enemy 1</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 1
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -367,7 +376,9 @@ export function NewMatchupForm({
                   name="enemy2"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enemy 2</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 2
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -390,7 +401,9 @@ export function NewMatchupForm({
                   name="enemy3"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enemy 3</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 3
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -413,7 +426,9 @@ export function NewMatchupForm({
                   name="enemy4"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enemy 4</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 4
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -436,7 +451,9 @@ export function NewMatchupForm({
                   name="enemy5"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Enemy 5</FormLabel>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 5
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -459,14 +476,14 @@ export function NewMatchupForm({
           )}
           <div className="flex flex-row gap-4 mt-6">
             <Button
-              className="bg-orange-600 submit-button"
+              className="bg-orange_highlighter active:bg-orange_highlighter hover:bg-orange_highlighter submit-button"
               type="button"
               onClick={handleSubmit}
             >
               {submitClickCount === 0 ? "Submit" : "Confirm Submit"}
             </Button>
             <Button
-              className="close-button"
+              className="bg-overwatch_blue_main active:bg-overwatch_blue_main hover:bg-overwatch_blue_main close-button"
               type="button"
               onClick={handleClose}
             >
