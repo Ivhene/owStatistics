@@ -1,3 +1,5 @@
+import { MatchesListFetcher } from "@/components/dashboard/MatchesListFetcher";
+
 export default function MatchesPage() {
-  return <div>Matches</div>;
+  return <MatchesListFetcher />;
 }
