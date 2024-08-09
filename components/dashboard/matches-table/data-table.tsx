@@ -25,10 +25,10 @@ import { DataTableFilters } from "./data-table-filters";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: Match[];
 }
 
-export function DataTable<Match, TValue>({
+export function DataTable<TValue>({
   columns,
   data,
 }: DataTableProps<Match, TValue>) {
@@ -37,7 +37,7 @@ export function DataTable<Match, TValue>({
     []
   );
 
-  const table = useReactTable({
+  const table = useReactTable<Match>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/select";
 import { selectMaps } from "@/functions/selectMapper";
 import { deleteMatches } from "@/lib/API";
-import { Match, Match1 } from "@/lib/types";
+import { Match } from "@/lib/types";
 import { Table } from "@tanstack/react-table";
 import { Trash, X } from "lucide-react";
 
-interface DataTableFiltersProps {
-  table: Table<Match>;
+interface DataTableFiltersProps<TData> {
+  table: Table<TData>;
 }
 
-export function DataTableFilters({ table }: DataTableFiltersProps) {
+export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
   function clearFilters() {
     table.getColumn("map")?.setFilterValue("");
     table.getColumn("role")?.setFilterValue("");
@@ -32,7 +32,7 @@ export function DataTableFilters({ table }: DataTableFiltersProps) {
         }
       >
         <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
-          <SelectValue placeholder="Select result" />
+          <SelectValue placeholder="Select role" />
         </SelectTrigger>
         <SelectContent className="max-h-72 text-overwatch_gray_main">
           <SelectItem value="tank">Tank</SelectItem>
@@ -45,7 +45,7 @@ export function DataTableFilters({ table }: DataTableFiltersProps) {
         onValueChange={(value) => table.getColumn("map")?.setFilterValue(value)}
       >
         <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
-          <SelectValue placeholder="Select role" />
+          <SelectValue placeholder="Select map" />
         </SelectTrigger>
         <SelectContent className="max-h-72 text-overwatch_gray_main">
           {selectMaps("")}
@@ -58,7 +58,7 @@ export function DataTableFilters({ table }: DataTableFiltersProps) {
         }
       >
         <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
-          <SelectValue placeholder="Select role" />
+          <SelectValue placeholder="Select result" />
         </SelectTrigger>
         <SelectContent className="max-h-72 text-overwatch_gray_main">
           <SelectItem value="win">Win</SelectItem>
