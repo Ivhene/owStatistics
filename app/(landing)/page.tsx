@@ -22,7 +22,7 @@ export default function Home() {
             be filtered by which hero you played
           </p>
           <SignedOut>
-            <Button className="bg-orange_highlighter font-bold w-48 h-16 text-xl rounded-xl m-auto mt-4 mb-4">
+            <Button className="bg-orange_highlighter hover:bg-orange-400 active:bg-orange_highlighter font-bold w-48 h-16 text-xl rounded-xl m-auto mt-4 mb-4">
               <Link href="/sign-up">Get Started</Link>
             </Button>
           </SignedOut>

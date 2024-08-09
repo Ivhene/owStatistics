@@ -86,3 +86,21 @@ export async function deleteData() {
     console.error("Error deleting data:", error);
   }
 }
+
+export async function deleteMatches(matches: Match[]) {
+  await Promise.all(
+    matches.map(async (match: Match) => {
+      await Promise.all(
+        match.matchup.map(async (matchup) => {
+          await prisma.matchup.delete({
+            where: { matchupID: matchup.matchupID },
+          });
+        })
+      );
+
+      await prisma.game.delete({
+        where: { matchID: match.matchID },
+      });
+    })
+  );
+}

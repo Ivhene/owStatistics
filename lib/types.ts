@@ -18,6 +18,14 @@ export type Match = {
   matchup: Matchup[];
 };
 
+export type Match1 = {
+  matchID: number;
+  map: string;
+  result: string;
+  role: string;
+  matchup: Matchup[];
+};
+
 export type MatchToSave = {
   result: string;
   role: string;

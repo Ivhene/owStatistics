@@ -104,7 +104,7 @@ export function MapDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <Button
-            className="mb-0 mt-auto lg:w-36 xl:w-[180px] gap-1 bg-overwatch_blue_main"
+            className="mb-0 mt-auto lg:w-36 xl:w-[180px] gap-1 bg-overwatch_blue_main hover:bg-overwatch_gray_main active:bg-overwatch_blue_main"
             onClick={handleClearFilters}
           >
             <X /> Clear Filters
