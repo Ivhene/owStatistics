@@ -22,6 +22,7 @@ import {
 import React from "react";
 import { Match } from "@/lib/types";
 import { DataTableFilters } from "./data-table-filters";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,6 +38,8 @@ export function DataTable<TValue>({
     []
   );
 
+  const router = useRouter();
+
   const table = useReactTable<Match>({
     data,
     columns,
@@ -50,6 +53,10 @@ export function DataTable<TValue>({
       columnFilters,
     },
   });
+
+  function rowClick(id: number) {
+    router.push("/mypage/matches/" + id);
+  }
 
   return (
     <div>
@@ -81,6 +88,7 @@ export function DataTable<TValue>({
                   className="hover:bg-extra_background"
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => rowClick(row.original.matchID)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

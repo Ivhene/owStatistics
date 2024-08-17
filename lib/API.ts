@@ -25,6 +25,21 @@ export async function findAllGames(): Promise<Match[]> {
   }
 }
 
+export async function findGame(matchID: number): Promise<Match | null> {
+  try {
+    const user = await currentUser();
+    const res = await prisma.game.findFirst({
+      include: { matchup: true },
+      where: { user1: user?.id, matchID: matchID },
+    });
+    return res;
+  } catch (error) {
+    console.error(error);
+    await delay(10000);
+    return findGame(matchID);
+  }
+}
+
 export async function addNewGame(match: MatchToSave) {
   try {
     const user = await currentUser();
