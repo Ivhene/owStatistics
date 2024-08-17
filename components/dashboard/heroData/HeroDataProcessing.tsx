@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "../../ui/select";
 import { addMatchToMatchup } from "@/functions/addMatchToMatchup";
 import {
   selectHero,
@@ -15,12 +15,12 @@ import {
   selectMapTypes,
 } from "@/functions/selectMapper";
 import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { filterByHero } from "@/functions/filterFunctions";
 import { changeTarget } from "@/functions/changeTarget";
 import { usePathname } from "next/navigation";
 import HeroDataDisplay from "./HeroDataDisplay";
-import { Label } from "../ui/label";
+import { Label } from "../../ui/label";
 import { X } from "lucide-react";
 
 interface HeroDataProps {

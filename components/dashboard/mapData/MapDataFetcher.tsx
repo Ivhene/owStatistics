@@ -1,5 +1,5 @@
 import { findAllGames } from "@/lib/API";
-import { HeroDataProcessing } from "./HeroDataProcessing";
+import { HeroDataProcessing } from "../heroData/HeroDataProcessing";
 import { MapDataProcessing } from "./MapDataProcessing";
 
 export default async function MapDataFetching() {

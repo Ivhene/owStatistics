@@ -8,33 +8,30 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { CategoryTick } from "./CategoryTick";
-import {
-  displayByRoleAgainst,
-  displayByRoleWith,
-} from "@/functions/matchupDisplay";
-import { MatchupWithMaps } from "@/lib/types";
-import { usePathname } from "next/navigation";
+import { CategoryTick } from "../CategoryTick";
+import { displayMaps } from "@/functions/matchupDisplay";
+import { Match } from "@/lib/types";
 
 interface HeroDataDisplayProps {
-  data: MatchupWithMaps[];
+  data: Match[];
   role: string;
+  maptype: string;
 }
 
-export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
-  const path = usePathname();
-  const display =
-    path === "/mypage/against"
-      ? displayByRoleAgainst(role, data)
-      : displayByRoleWith(role, data);
+export default function MapDataDisplay({
+  data,
+  role,
+  maptype,
+}: HeroDataDisplayProps) {
+  const display = displayMaps(maptype, role, data);
 
   return (
-    <div className="w-full h-full bg-main_background pb-2">
+    <div className="w-full h-full bg-main_background p-2">
       <ResponsiveContainer width="97.5%" height={"100%"}>
         <BarChart data={display}>
           <CartesianGrid strokeDasharray="1 1" />
           <XAxis
-            dataKey="hero"
+            dataKey="map"
             interval={0}
             height={60}
             tick={<CategoryTick />}
@@ -46,6 +43,11 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
             dataKey="wins"
             fill="#33BB33"
             activeBar={<Rectangle fill="green" stroke="green" />}
+          />
+          <Bar
+            dataKey="draws"
+            fill="#FFC91A"
+            activeBar={<Rectangle fill="yellow" stroke="yellow" />}
           />
           <Bar
             dataKey="losses"

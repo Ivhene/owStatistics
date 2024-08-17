@@ -1,8 +1,8 @@
 "use client";
 
 import { Match } from "@/lib/types";
-import { DataTable } from "./matches-table/data-table";
-import { columns } from "./matches-table/columns";
+import { DataTable } from "../matches-table/data-table";
+import { columns } from "../matches-table/columns";
 
 interface MatchesListProps {
   matches: Match[];

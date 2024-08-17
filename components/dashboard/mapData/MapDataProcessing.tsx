@@ -7,12 +7,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "../../ui/select";
 import { selectMapTypes } from "@/functions/selectMapper";
 import { findMaptypeOfMap } from "@/functions/findMaptypeOfMap";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import MapDataDisplay from "./MapDataDisplay";
-import { Label } from "../ui/label";
+import { Label } from "../../ui/label";
 import { X } from "lucide-react";
 
 interface HeroDataProps {

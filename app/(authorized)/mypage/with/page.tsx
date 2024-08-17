@@ -1,4 +1,4 @@
-import HeroDataFetching from "@/components/dashboard/HeroDataFetcher";
+import HeroDataFetching from "@/components/dashboard/heroData/HeroDataFetcher";
 
 export default async function DashboardWithPage() {
   return <HeroDataFetching />;
