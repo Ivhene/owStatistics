@@ -91,3 +91,9 @@ export type DisplayMap = {
   losses: number;
   draws: number;
 };
+
+export type HeroPlayedData = {
+  name: string;
+  image: string;
+  percentagePlayed: number;
+};

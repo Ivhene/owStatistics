@@ -54,10 +54,16 @@ export function DataTable<TValue>({
     },
   });
 
-  function rowClick(id: number) {
+  function rowClick(event: React.MouseEvent, id: number) {
+    // Ensure event.target is a valid HTMLElement and check if it's a button with role="checkbox"
+    const target = event.target as HTMLElement;
+
+    if (target && target.closest('button[role="checkbox"]')) {
+      return;
+    }
+
     router.push("/mypage/matches/" + id);
   }
-
   return (
     <div>
       <DataTableFilters table={table} />
@@ -88,7 +94,7 @@ export function DataTable<TValue>({
                   className="hover:bg-extra_background"
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  onClick={() => rowClick(row.original.matchID)}
+                  onClick={(evt) => rowClick(evt, row.original.matchID)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
