@@ -1,3 +1,11 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { convertHeroPlayedData } from "@/functions/matchDataMapper";
 import { getMapImage } from "@/functions/nameToImageConverter";
 import { Match } from "@/lib/types";
@@ -54,6 +62,29 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
           <h2 className="text-2xl text-overwatch_blue_main font-bold text-center">
             Heroes played ({heroPlayedData.length})
           </h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Hero</TableHead>
+                <TableHead>Played</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {heroPlayedData.map((data) => (
+                <TableRow key={data.name}>
+                  <TableCell className="flex flex-col">
+                    <Image
+                      src={data.image}
+                      alt={`image of ${data.name}`}
+                      width={40}
+                      height={40}
+                    />
+                    {data.name}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>
