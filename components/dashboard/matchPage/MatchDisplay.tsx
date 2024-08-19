@@ -100,42 +100,66 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
         </div>
       </div>
       <div className="w-full h-full bg-main_background rounded-xl overflow-auto">
-        <Table>
+        <Table className="table-fixed w-full text-center">
           <TableHeader>
-            <TableHead className="bg-ally_color text-white text-center">
-              Hero played
-            </TableHead>
-            <TableHead className="bg-ally_color text-white text-center">
-              Ally 1
-            </TableHead>
-            <TableHead className="bg-ally_color text-white text-center">
-              Ally 2
-            </TableHead>
-            <TableHead className="bg-ally_color text-white text-center">
-              Ally 3
-            </TableHead>
-            <TableHead className="bg-ally_color text-white text-center">
-              Ally 4
-            </TableHead>
-            <TableHead className="bg-overwatch_gray_main text-white text-center">
-              VS
-            </TableHead>
-            <TableHead className="bg-enemy_color text-white text-center">
-              Enemy 1
-            </TableHead>
-            <TableHead className="bg-enemy_color text-white text-center">
-              Enemy 2
-            </TableHead>
-            <TableHead className="bg-enemy_color text-white text-center">
-              Enemy 3
-            </TableHead>
-            <TableHead className="bg-enemy_color text-white text-center">
-              Enemy 4
-            </TableHead>
-            <TableHead className="bg-enemy_color text-white text-center">
-              Enemy 5
-            </TableHead>
+            <TableRow>
+              <TableHead className="bg-ally_color text-white text-center w-1/11">
+                Hero played
+              </TableHead>
+              <TableHead className="bg-ally_color text-white text-center w-1/11">
+                Ally 1
+              </TableHead>
+              <TableHead className="bg-ally_color text-white text-center w-1/11">
+                Ally 2
+              </TableHead>
+              <TableHead className="bg-ally_color text-white text-center w-1/11">
+                Ally 3
+              </TableHead>
+              <TableHead className="bg-ally_color text-white text-center w-1/11">
+                Ally 4
+              </TableHead>
+              <TableHead className="bg-overwatch_gray_main text-white text-center w-16">
+                VS
+              </TableHead>
+              <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                Enemy 1
+              </TableHead>
+              <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                Enemy 2
+              </TableHead>
+              <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                Enemy 3
+              </TableHead>
+              <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                Enemy 4
+              </TableHead>
+              <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                Enemy 5
+              </TableHead>
+            </TableRow>
           </TableHeader>
+          <TableBody>
+            {match.matchup.map((matchup) => (
+              <TableRow key={matchup.heroPlayed}>
+                <TableCell className="w-1/11">{matchup.heroPlayed}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally1}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally2}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally3}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally4}</TableCell>
+                <TableCell
+                  className={cn(
+                    "w-[50px]", // Small width for the VS column
+                    matchup.win ? "bg-green-400" : "bg-enemy_color"
+                  )}
+                ></TableCell>
+                <TableCell className="w-1/11">{matchup.enemy1}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy2}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy3}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy4}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy5}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </div>
     </div>
