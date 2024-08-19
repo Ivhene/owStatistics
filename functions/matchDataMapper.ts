@@ -18,7 +18,7 @@ export function convertHeroPlayedData(matchups: Matchup[]) {
       heroPlayedData.push({
         name: hero.name,
         image: hero.image,
-        percentagePlayed: count / matchupCount,
+        percentagePlayed: (count / matchupCount) * 100,
       });
     }
   });
