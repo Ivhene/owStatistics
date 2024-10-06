@@ -1,4 +1,5 @@
-# !NOTE: If you get an application error when opening the production build, give it around 1 minute, then refresh. The database is likely sleeping and needs to wake up
+# !NOTE: Currently production is down
+Need to add a database after the existing solution got disabled
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
