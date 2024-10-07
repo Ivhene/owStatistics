@@ -1,3 +1,7 @@
+# !NOTE: Currently production is down
+Need to add a database after the existing solution got disabled
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
