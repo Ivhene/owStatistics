@@ -15,6 +15,7 @@ export type Match = {
   map: string;
   result: string;
   role: string;
+  user1: string;
   matchup: Matchup[];
 };
 
