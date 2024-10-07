@@ -1,5 +1,5 @@
 # !NOTE: No persistent data saving
-Need to add a database after the existing solution got disabled. At the moment there will not be any data visible
+Need to add a database after the existing solution got disabled. At the moment there will not be any data storage, therefore there will be no data to display
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
