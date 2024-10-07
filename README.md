@@ -1,5 +1,5 @@
-# !NOTE: Currently production is down
-Need to add a database after the existing solution got disabled
+# !NOTE: No persistent data saving
+Need to add a database after the existing solution got disabled. At the moment only the most recent entry is accessible
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
