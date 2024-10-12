@@ -1,6 +1,5 @@
 "use server";
 
-import { currentUser } from "@clerk/nextjs";
 import { PrismaClient } from "@prisma/client";
 import { Match, MatchToSave } from "./types";
 import {
@@ -11,6 +10,7 @@ import {
   getAllMatchesByUser,
   getMatch,
 } from "./testData";
+import { currentUser } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient();
 
@@ -19,7 +19,7 @@ async function delay(ms: number) {
 }
 
 export async function findAllGames() {
-  /*  try {
+  try {
     const user = await currentUser();
     const res = await prisma.game.findMany({
       include: { matchup: true },
@@ -30,13 +30,16 @@ export async function findAllGames() {
     console.error(error);
     await delay(10000);
     return findAllGames();
-  } */
+  }
+
+  /*  
   const user = await currentUser();
   return getAllMatchesByUser(user?.id ?? "");
+  */
 }
 
 export async function findGame(matchID: number) {
-  /*try {
+  try {
     const user = await currentUser();
     const res = await prisma.game.findFirst({
       include: { matchup: true },
@@ -47,18 +50,20 @@ export async function findGame(matchID: number) {
     console.error(error);
     await delay(10000);
     return findGame(matchID);
-  } */
-
+  }
+  /*
   const user = await currentUser();
   const match = getMatch(matchID);
   if (user?.id !== match?.user1) {
     return;
   }
   return match;
+
+  */
 }
 
 export async function addNewGame(match: MatchToSave) {
-  /* try {
+  try {
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
       data: {
@@ -93,16 +98,18 @@ export async function addNewGame(match: MatchToSave) {
   } catch (error) {
     console.error("Error adding new game:", error);
   }
-  */
+
+  /*
   const user = await currentUser();
   const newMatch = addMatch(match, user?.id ?? "");
   match.matchup.forEach((matchup) =>
     addMatchupToMatch(newMatch.matchID, matchup)
   );
+  */
 }
 
 export async function deleteData() {
-  /* try {
+  try {
     const data = await findAllGames();
     // Ensure all deletions are complete before revalidation
     await Promise.all(
@@ -122,16 +129,18 @@ export async function deleteData() {
     );
   } catch (error) {
     console.error("Error deleting data:", error);
-  } */
+  }
 
+  /*
   const user = await currentUser();
   if (user?.id) {
     deleteAllMatchesByUser(user.id);
   }
+    */
 }
 
 export async function deleteMatches(matches: Match[]) {
-  /* await Promise.all(
+  await Promise.all(
     matches.map(async (match: Match) => {
       await Promise.all(
         match.matchup.map(async (matchup) => {
@@ -146,12 +155,13 @@ export async function deleteMatches(matches: Match[]) {
       });
     })
   );
-  */
 
+  /*
   const user = await currentUser();
   if (user?.id) {
     matches.forEach((match) =>
       user.id === match.user1 ? deleteMatch(match) : null
     );
   }
+    */
 }

@@ -18,9 +18,6 @@ export function getMatch(matchID: number) {
 }
 
 export function addMatch(match: MatchToSave, user: string) {
-  console.log("matchid: " + rollingMatchID);
-  console.log(testData);
-
   const newMatch: Match = {
     ...match,
     matchID: rollingMatchID,
