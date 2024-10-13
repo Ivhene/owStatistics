@@ -56,13 +56,14 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     }
     if (filterStates.selectMap !== "") {
       filteredMatchups = filteredMatchups.filter(
-        (matchup) => matchup.match.map === filterStates.selectMap
+        (matchup) => matchup.match.map.name === filterStates.selectMap
       );
     }
     if (filterStates.selectMapType !== "") {
       filteredMatchups = filteredMatchups.filter(
         (matchup) =>
-          findMaptypeOfMap(matchup.match.map) === filterStates.selectMapType
+          findMaptypeOfMap(matchup.match.map.name) ===
+          filterStates.selectMapType
       );
     }
     setDisplayData(filteredMatchups);
