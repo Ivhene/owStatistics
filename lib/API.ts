@@ -2,14 +2,6 @@
 
 import { PrismaClient } from "@prisma/client";
 import { Match, MatchToSave } from "./types";
-import {
-  addMatch,
-  addMatchupToMatch,
-  deleteAllMatchesByUser,
-  deleteMatch,
-  getAllMatchesByUser,
-  getMatch,
-} from "./testData";
 import { currentUser } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient();
@@ -328,14 +320,6 @@ export async function addNewGame(match: MatchToSave) {
   } catch (error) {
     console.error("Error adding new game:", error);
   }
-
-  /*
-  const user = await currentUser();
-  const newMatch = addMatch(match, user?.id ?? "");
-  match.matchup.forEach((matchup) =>
-    addMatchupToMatch(newMatch.matchID, matchup)
-  );
-  */
 }
 
 export async function deleteData() {
@@ -360,13 +344,6 @@ export async function deleteData() {
   } catch (error) {
     console.error("Error deleting data:", error);
   }
-
-  /*
-  const user = await currentUser();
-  if (user?.id) {
-    deleteAllMatchesByUser(user.id);
-  }
-    */
 }
 
 export async function deleteMatches(matches: Match[]) {
@@ -385,13 +362,4 @@ export async function deleteMatches(matches: Match[]) {
       });
     })
   );
-
-  /*
-  const user = await currentUser();
-  if (user?.id) {
-    matches.forEach((match) =>
-      user.id === match.user1 ? deleteMatch(match) : null
-    );
-  }
-    */
 }

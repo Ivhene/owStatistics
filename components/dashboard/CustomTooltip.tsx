@@ -13,20 +13,20 @@ export function CustomTooltip({ matchups }: { matchups: MatchupWithMaps[] }) {
   matchups.forEach((matchup) => {
     for (let i = 0; i < Heroes.length; i++) {
       if (
-        matchup.ally1 === Heroes[i].name ||
-        matchup.ally2 === Heroes[i].name ||
-        matchup.ally3 === Heroes[i].name ||
-        matchup.ally4 === Heroes[i].name
+        matchup.ally1.heroPlayed.name === Heroes[i].name ||
+        matchup.ally2.heroPlayed.name === Heroes[i].name ||
+        matchup.ally3.heroPlayed.name === Heroes[i].name ||
+        matchup.ally4.heroPlayed.name === Heroes[i].name
       ) {
         allied[i]++;
       }
 
       if (
-        matchup.enemy1 === Heroes[i].name ||
-        matchup.enemy2 === Heroes[i].name ||
-        matchup.enemy3 === Heroes[i].name ||
-        matchup.enemy4 === Heroes[i].name ||
-        matchup.enemy5 === Heroes[i].name
+        matchup.enemy1.heroPlayed.name === Heroes[i].name ||
+        matchup.enemy2.heroPlayed.name === Heroes[i].name ||
+        matchup.enemy3.heroPlayed.name === Heroes[i].name ||
+        matchup.enemy4.heroPlayed.name === Heroes[i].name ||
+        matchup.enemy5.heroPlayed.name === Heroes[i].name
       ) {
         enemy[i]++;
       }
