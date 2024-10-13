@@ -9,7 +9,7 @@ export function convertHeroPlayedData(matchups: Matchup[]) {
   Heroes.forEach((hero) => {
     let count = 0;
     matchups.forEach((matchup) => {
-      if (matchup.heroPlayed === hero.name) {
+      if (matchup.heroPlayed.name === hero.name) {
         count++;
       }
     });

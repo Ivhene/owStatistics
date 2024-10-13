@@ -10,20 +10,17 @@ export type Map = {
   mode: string;
 };
 
+export type Player = {
+  heroPlayed: Hero;
+  groupedWithYou: boolean;
+};
+
 export type Match = {
   matchID: number;
-  map: string;
+  map: Map;
   result: string;
   role: string;
   user1: string;
-  matchup: Matchup[];
-};
-
-export type Match1 = {
-  matchID: number;
-  map: string;
-  result: string;
-  role: string;
   matchup: Matchup[];
 };
 
@@ -36,17 +33,17 @@ export type MatchToSave = {
 
 export type Matchup = {
   matchupID: number;
-  heroPlayed: string;
+  heroPlayed: Hero;
   win: boolean;
-  enemy1: string;
-  enemy2: string;
-  enemy3: string;
-  enemy4: string;
-  enemy5: string;
-  ally1: string;
-  ally2: string;
-  ally3: string;
-  ally4: string;
+  enemy1: Player;
+  enemy2: Player;
+  enemy3: Player;
+  enemy4: Player;
+  enemy5: Player;
+  ally1: Player;
+  ally2: Player;
+  ally3: Player;
+  ally4: Player;
   matchID: number;
 };
 
@@ -66,17 +63,17 @@ export type MatchupToSave = {
 
 export type MatchupWithMaps = {
   matchupID: number;
-  heroPlayed: string;
+  heroPlayed: Hero;
   win: boolean;
-  enemy1: string;
-  enemy2: string;
-  enemy3: string;
-  enemy4: string;
-  enemy5: string;
-  ally1: string;
-  ally2: string;
-  ally3: string;
-  ally4: string;
+  enemy1: Player;
+  enemy2: Player;
+  enemy3: Player;
+  enemy4: Player;
+  enemy5: Player;
+  ally1: Player;
+  ally2: Player;
+  ally3: Player;
+  ally4: Player;
   match: Match;
 };
 

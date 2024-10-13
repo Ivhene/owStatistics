@@ -28,10 +28,10 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
       <div className="flex flex-row gap-4">
         <div className="bg-main_background w-fit flex flex-col items-center justify-center p-4 gap-4 rounded-xl h-[300px]">
           <h2 className="text-2xl text-overwatch_blue_main font-bold text-center">
-            Match {match.matchID}: {match.map}
+            Match {match.matchID}: {match.map.name}
           </h2>
           <Image
-            src={getMapImage(match.map) ?? ""}
+            src={match.map.image}
             alt="Image of the map"
             width={350}
             height={10}
@@ -139,24 +139,44 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {match.matchup.map((matchup) => (
-              <TableRow key={matchup.heroPlayed}>
-                <TableCell className="w-1/11">{matchup.heroPlayed}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally1}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally2}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally3}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally4}</TableCell>
+            {match.matchup.map((matchup, index) => (
+              <TableRow key={index}>
+                <TableCell className="w-1/11">
+                  {matchup.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.ally1.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.ally2.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.ally3.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.ally4.heroPlayed.name}
+                </TableCell>
                 <TableCell
                   className={cn(
                     "w-[50px]", // Small width for the VS column
                     matchup.win ? "bg-green-400" : "bg-enemy_color"
                   )}
                 ></TableCell>
-                <TableCell className="w-1/11">{matchup.enemy1}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy2}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy3}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy4}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy5}</TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.enemy1.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.enemy2.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.enemy3.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.enemy4.heroPlayed.name}
+                </TableCell>
+                <TableCell className="w-1/11">
+                  {matchup.enemy5.heroPlayed.name}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

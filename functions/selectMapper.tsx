@@ -10,7 +10,8 @@ export function selectHero(role: string, matchups?: MatchupWithMaps[]) {
 
   for (const hero of heroes) {
     const matchupApperances = matchups
-      ? matchups?.filter((matchup) => matchup.heroPlayed === hero.name).length
+      ? matchups?.filter((matchup) => matchup.heroPlayed.name === hero.name)
+          .length
       : -1;
     res.push(
       <div className="flex justify-between items-center" key={hero.name}>
@@ -36,7 +37,7 @@ export function selectMaps(maptype: string, matches?: Match[]) {
 
   for (const map of maps) {
     const matchesOnMap = matches
-      ? matches.filter((match) => match.map === map.name).length
+      ? matches.filter((match) => match.map.name === map.name).length
       : -1;
     res.push(
       <div className="flex justify-between items-center" key={map.name}>

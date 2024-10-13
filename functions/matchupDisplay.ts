@@ -18,11 +18,11 @@ export function displayByRoleAgainst(
 
     matchups.forEach((matchup) => {
       if (
-        matchup.enemy1 === hero.name ||
-        matchup.enemy2 === hero.name ||
-        matchup.enemy3 === hero.name ||
-        matchup.enemy4 === hero.name ||
-        matchup.enemy5 === hero.name
+        matchup.enemy1.heroPlayed.name === hero.name ||
+        matchup.enemy2.heroPlayed.name === hero.name ||
+        matchup.enemy3.heroPlayed.name === hero.name ||
+        matchup.enemy4.heroPlayed.name === hero.name ||
+        matchup.enemy5.heroPlayed.name === hero.name
       ) {
         matchup.win ? wins++ : losses++;
       }
@@ -47,10 +47,10 @@ export function displayByRoleWith(role: string, matchups: MatchupWithMaps[]) {
 
     matchups.forEach((matchup) => {
       if (
-        matchup.ally1 === hero.name ||
-        matchup.ally2 === hero.name ||
-        matchup.ally3 === hero.name ||
-        matchup.ally4 === hero.name
+        matchup.ally1.heroPlayed.name === hero.name ||
+        matchup.ally2.heroPlayed.name === hero.name ||
+        matchup.ally3.heroPlayed.name === hero.name ||
+        matchup.ally4.heroPlayed.name === hero.name
       ) {
         matchup.win ? wins++ : losses++;
       }
@@ -75,7 +75,7 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
       draws = 0;
 
     matches.forEach((match) => {
-      if (match.map === map.name) {
+      if (match.map.name === map.name) {
         match.result === "win"
           ? wins++
           : match.result === "loss"

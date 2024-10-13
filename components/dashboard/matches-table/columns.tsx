@@ -58,7 +58,7 @@ export const columns: ColumnDef<Match>[] = [
     },
   },
   {
-    accessorKey: "map",
+    accessorKey: "map.name",
     header: ({ column }) => {
       return (
         <Button
