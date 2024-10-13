@@ -11,6 +11,7 @@ export type Map = {
 };
 
 export type Player = {
+  playerID: number;
   heroPlayed: Hero;
   groupedWithYou: boolean;
 };
