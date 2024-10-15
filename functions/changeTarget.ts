@@ -63,14 +63,14 @@ function findOthers(matchups: MatchupWithMaps[]) {
 function addAlly1(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.ally1.heroPlayed,
+    heroPlayed: matchup.ally1,
     win: matchup.win,
     enemy1: matchup.enemy1,
     enemy2: matchup.enemy2,
     enemy3: matchup.enemy3,
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
-    ally1: { ...matchup.ally1, heroPlayed: matchup.heroPlayed },
+    ally1: matchup.heroPlayed,
     ally2: matchup.ally2,
     ally3: matchup.ally3,
     ally4: matchup.ally4,
@@ -81,7 +81,7 @@ function addAlly1(matchup: MatchupWithMaps): MatchupWithMaps {
 function addAlly2(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.ally2.heroPlayed,
+    heroPlayed: matchup.ally2,
     win: matchup.win,
     enemy1: matchup.enemy1,
     enemy2: matchup.enemy2,
@@ -89,7 +89,7 @@ function addAlly2(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
     ally1: matchup.ally1,
-    ally2: { ...matchup.ally2, heroPlayed: matchup.heroPlayed },
+    ally2: matchup.heroPlayed,
     ally3: matchup.ally3,
     ally4: matchup.ally4,
     match: matchup.match,
@@ -99,7 +99,7 @@ function addAlly2(matchup: MatchupWithMaps): MatchupWithMaps {
 function addAlly3(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.ally3.heroPlayed,
+    heroPlayed: matchup.ally3,
     win: matchup.win,
     enemy1: matchup.enemy1,
     enemy2: matchup.enemy2,
@@ -108,7 +108,7 @@ function addAlly3(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy5: matchup.enemy5,
     ally1: matchup.ally1,
     ally2: matchup.ally2,
-    ally3: { ...matchup.ally3, heroPlayed: matchup.heroPlayed },
+    ally3: matchup.heroPlayed,
     ally4: matchup.ally4,
     match: matchup.match,
   };
@@ -117,7 +117,7 @@ function addAlly3(matchup: MatchupWithMaps): MatchupWithMaps {
 function addAlly4(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.ally4.heroPlayed,
+    heroPlayed: matchup.ally4,
     win: matchup.win,
     enemy1: matchup.enemy1,
     enemy2: matchup.enemy2,
@@ -127,7 +127,7 @@ function addAlly4(matchup: MatchupWithMaps): MatchupWithMaps {
     ally1: matchup.ally1,
     ally2: matchup.ally2,
     ally3: matchup.ally3,
-    ally4: { ...matchup.ally4, heroPlayed: matchup.heroPlayed },
+    ally4: matchup.heroPlayed,
     match: matchup.match,
   };
 }
@@ -135,12 +135,9 @@ function addAlly4(matchup: MatchupWithMaps): MatchupWithMaps {
 function addEnemy1(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.enemy1.heroPlayed,
+    heroPlayed: matchup.enemy1,
     win: !matchup.win,
-    enemy1: {
-      heroPlayed: matchup.heroPlayed,
-      groupedWithYou: false,
-    },
+    enemy1: matchup.heroPlayed,
     enemy2: matchup.ally1,
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
@@ -156,12 +153,9 @@ function addEnemy1(matchup: MatchupWithMaps): MatchupWithMaps {
 function addEnemy2(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.enemy2.heroPlayed,
+    heroPlayed: matchup.enemy2,
     win: !matchup.win,
-    enemy1: {
-      heroPlayed: matchup.heroPlayed,
-      groupedWithYou: false,
-    },
+    enemy1: matchup.heroPlayed,
     enemy2: matchup.ally1,
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
@@ -177,12 +171,9 @@ function addEnemy2(matchup: MatchupWithMaps): MatchupWithMaps {
 function addEnemy3(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.enemy3.heroPlayed,
+    heroPlayed: matchup.enemy3,
     win: !matchup.win,
-    enemy1: {
-      heroPlayed: matchup.heroPlayed,
-      groupedWithYou: false,
-    },
+    enemy1: matchup.heroPlayed,
     enemy2: matchup.ally1,
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
@@ -198,12 +189,9 @@ function addEnemy3(matchup: MatchupWithMaps): MatchupWithMaps {
 function addEnemy4(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.enemy4.heroPlayed,
+    heroPlayed: matchup.enemy4,
     win: !matchup.win,
-    enemy1: {
-      heroPlayed: matchup.heroPlayed,
-      groupedWithYou: false,
-    },
+    enemy1: matchup.heroPlayed,
     enemy2: matchup.ally1,
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
@@ -219,12 +207,9 @@ function addEnemy4(matchup: MatchupWithMaps): MatchupWithMaps {
 function addEnemy5(matchup: MatchupWithMaps): MatchupWithMaps {
   return {
     matchupID: matchup.matchupID,
-    heroPlayed: matchup.enemy5.heroPlayed,
+    heroPlayed: matchup.enemy5,
     win: !matchup.win,
-    enemy1: {
-      heroPlayed: matchup.heroPlayed,
-      groupedWithYou: false,
-    },
+    enemy1: matchup.heroPlayed,
     enemy2: matchup.ally1,
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,

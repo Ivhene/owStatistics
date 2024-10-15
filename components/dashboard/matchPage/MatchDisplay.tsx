@@ -144,39 +144,21 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
                 <TableCell className="w-1/11">
                   {matchup.heroPlayed.name}
                 </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.ally1.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.ally2.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.ally3.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.ally4.heroPlayed.name}
-                </TableCell>
+                <TableCell className="w-1/11">{matchup.ally1.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally2.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally3.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally4.name}</TableCell>
                 <TableCell
                   className={cn(
                     "w-[50px]", // Small width for the VS column
                     matchup.win ? "bg-green-400" : "bg-enemy_color"
                   )}
                 ></TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.enemy1.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.enemy2.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.enemy3.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.enemy4.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">
-                  {matchup.enemy5.heroPlayed.name}
-                </TableCell>
+                <TableCell className="w-1/11">{matchup.enemy1.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy2.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy3.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy4.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy5.name}</TableCell>
               </TableRow>
             ))}
           </TableBody>

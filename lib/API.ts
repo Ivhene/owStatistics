@@ -56,56 +56,14 @@ export async function findAllGames() {
     const res = await prisma.game.findMany({
       include: {
         map: true,
-        matchup: {
+        matchups: {
           include: {
-            heroPlayed: true, // Include Hero for each Matchup
-            enemy1: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy1
-              },
-            },
-            enemy2: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy2
-              },
-            },
-            enemy3: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy3
-              },
-            },
-            enemy4: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy4
-              },
-            },
-            enemy5: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy5
-              },
-            },
-            ally1: {
-              include: {
-                heroPlayed: true, // Include Hero for ally1
-              },
-            },
-            ally2: {
-              include: {
-                heroPlayed: true, // Include Hero for ally2
-              },
-            },
-            ally3: {
-              include: {
-                heroPlayed: true, // Include Hero for ally3
-              },
-            },
-            ally4: {
-              include: {
-                heroPlayed: true, // Include Hero for ally4
-              },
-            },
+            heroPlayed: true, // Include Hero for Matchup
+            enemies: true,
+            allies: true,
           },
         },
+        groupMembers: true,
       },
       where: { user1: user?.id },
     });
@@ -123,56 +81,14 @@ export async function findGame(matchID: number) {
     const res = await prisma.game.findFirst({
       include: {
         map: true,
-        matchup: {
+        matchups: {
           include: {
             heroPlayed: true, // Include Hero for Matchup
-            enemy1: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy1
-              },
-            },
-            enemy2: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy2
-              },
-            },
-            enemy3: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy3
-              },
-            },
-            enemy4: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy4
-              },
-            },
-            enemy5: {
-              include: {
-                heroPlayed: true, // Include Hero for enemy5
-              },
-            },
-            ally1: {
-              include: {
-                heroPlayed: true, // Include Hero for ally1
-              },
-            },
-            ally2: {
-              include: {
-                heroPlayed: true, // Include Hero for ally2
-              },
-            },
-            ally3: {
-              include: {
-                heroPlayed: true, // Include Hero for ally3
-              },
-            },
-            ally4: {
-              include: {
-                heroPlayed: true, // Include Hero for ally4
-              },
-            },
+            enemies: true,
+            allies: true,
           },
         },
+        groupMembers: true,
       },
       where: { user1: user?.id, matchID: matchID },
     });
@@ -203,114 +119,19 @@ export async function addNewGame(match: MatchToSave) {
           data: {
             heroPlayedID: (await findHeroByName(m.heroPlayed))?.heroID ?? 0,
             win: m.win,
-            ally1ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.ally1))?.heroID ?? 0,
-                    },
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            ally2ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.ally2))?.heroID ?? 0,
-                    },
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            ally3ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.ally3))?.heroID ?? 0,
-                    },
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            ally4ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.ally4))?.heroID ?? 0,
-                    },
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            enemy1ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.enemy1))?.heroID ?? 0,
-                    }, // Replace with the actual hero ID
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            enemy2ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.enemy2))?.heroID ?? 0,
-                    }, // Replace with the actual hero ID
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            enemy3ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.enemy3))?.heroID ?? 0,
-                    }, // Replace with the actual hero ID
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            enemy4ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.enemy4))?.heroID ?? 0,
-                    }, // Replace with the actual hero ID
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
-            enemy5ID: (
-              await prisma.player.create({
-                data: {
-                  heroPlayed: {
-                    connect: {
-                      heroID: (await findHeroByName(m.enemy5))?.heroID ?? 0,
-                    }, // Replace with the actual hero ID
-                  },
-                  groupedWithYou: false,
-                },
-              })
-            ).playerID,
+            enemyIDs: [
+              (await findHeroByName(m.enemy1))?.heroID ?? 0,
+              (await findHeroByName(m.enemy2))?.heroID ?? 0,
+              (await findHeroByName(m.enemy3))?.heroID ?? 0,
+              (await findHeroByName(m.enemy4))?.heroID ?? 0,
+              (await findHeroByName(m.enemy5))?.heroID ?? 0,
+            ],
+            allyIDs: [
+              (await findHeroByName(m.ally1))?.heroID ?? 0,
+              (await findHeroByName(m.ally2))?.heroID ?? 0,
+              (await findHeroByName(m.ally3))?.heroID ?? 0,
+              (await findHeroByName(m.ally4))?.heroID ?? 0,
+            ],
             matchID: savedMatch.matchID,
           },
         });
@@ -329,7 +150,7 @@ export async function deleteData() {
     await Promise.all(
       data.map(async (match) => {
         await Promise.all(
-          match.matchup.map(async (matchup) => {
+          match.matchups.map(async (matchup) => {
             await prisma.matchup.delete({
               where: { matchupID: matchup.matchupID },
             });

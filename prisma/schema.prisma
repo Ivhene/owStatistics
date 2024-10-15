@@ -9,12 +9,13 @@ datasource db {
 }
 
 model Hero {
-  heroID  Int       @id @default(autoincrement())
-  name    String    @db.VarChar(40)
-  image   String    @db.VarChar(255)
-  role    String    @db.VarChar(7)
-  matchup Matchup[]
-  Player  Player[]
+  heroID   Int       @id @default(autoincrement())
+  name     String    @db.VarChar(40)
+  image    String    @db.VarChar(255)
+  role     String    @db.VarChar(7)
+  matchups Matchup[] @relation("HeroPlayed")
+  enemies  Matchup[] @relation("HeroEnemies")
+  allies   Matchup[] @relation("HeroAllies")
 }
 
 model Map {
@@ -22,62 +23,39 @@ model Map {
   name  String @db.VarChar(40)
   image String @db.VarChar(255)
   mode  String @db.VarChar(40)
-  game  Game[]
+  games Game[]
 }
 
 model Game {
-  matchID Int       @id @default(autoincrement())
-  map     Map       @relation(fields: [mapID], references: [mapID], onUpdate: NoAction)
-  user1   String    @db.VarChar(100)
-  result  String    @db.VarChar(4)
-  role    String    @db.VarChar(7)
-  matchup Matchup[]
-  mapID   Int
+  matchID      Int           @id @default(autoincrement())
+  map          Map           @relation(fields: [mapID], references: [mapID], onUpdate: NoAction)
+  user1        String        @db.VarChar(100)
+  result       String        @db.VarChar(4)
+  role         String        @db.VarChar(7)
+  matchups     Matchup[]
+  groupMembers GroupMember[]
+  mapID        Int
 }
 
 model Matchup {
   matchupID  Int     @id @default(autoincrement())
-  heroPlayed Hero    @relation(fields: [heroPlayedID], references: [heroID], onUpdate: NoAction)
+  heroPlayed Hero    @relation("HeroPlayed", fields: [heroPlayedID], references: [heroID], onUpdate: NoAction)
   win        Boolean
-  enemy1     Player  @relation("enemy1Relation", fields: [enemy1ID], references: [playerID], onUpdate: NoAction)
-  enemy2     Player  @relation("enemy2Relation", fields: [enemy2ID], references: [playerID], onUpdate: NoAction)
-  enemy3     Player  @relation("enemy3Relation", fields: [enemy3ID], references: [playerID], onUpdate: NoAction)
-  enemy4     Player  @relation("enemy4Relation", fields: [enemy4ID], references: [playerID], onUpdate: NoAction)
-  enemy5     Player  @relation("enemy5Relation", fields: [enemy5ID], references: [playerID], onUpdate: NoAction)
-  ally1      Player  @relation("ally1Relation", fields: [ally1ID], references: [playerID], onUpdate: NoAction)
-  ally2      Player  @relation("ally2Relation", fields: [ally2ID], references: [playerID], onUpdate: NoAction)
-  ally3      Player  @relation("ally3Relation", fields: [ally3ID], references: [playerID], onUpdate: NoAction)
-  ally4      Player  @relation("ally4Relation", fields: [ally4ID], references: [playerID], onUpdate: NoAction)
+  enemies    Hero[]  @relation("HeroEnemies")
+  allies     Hero[]  @relation("HeroAllies")
   matchID    Int
   game       Game    @relation(fields: [matchID], references: [matchID], onUpdate: NoAction)
 
   // Foreign keys for the related models
   heroPlayedID Int
-  enemy1ID     Int @unique
-  enemy2ID     Int @unique
-  enemy3ID     Int @unique
-  enemy4ID     Int @unique
-  enemy5ID     Int @unique
-  ally1ID      Int @unique
-  ally2ID      Int @unique
-  ally3ID      Int @unique
-  ally4ID      Int @unique
+  enemyIDs     Int[]
+  allyIDs      Int[]
 }
 
-model Player {
-  playerID       Int     @id @default(autoincrement())
-  heroPlayed     Hero    @relation(fields: [heroPlayedID], references: [heroID], onUpdate: NoAction)
-  groupedWithYou Boolean
-  heroPlayedID   Int
-
-  // Optional relations pointing back to Matchup for each enemy/ally
-  enemy1 Matchup? @relation("enemy1Relation")
-  enemy2 Matchup? @relation("enemy2Relation")
-  enemy3 Matchup? @relation("enemy3Relation")
-  enemy4 Matchup? @relation("enemy4Relation")
-  enemy5 Matchup? @relation("enemy5Relation")
-  ally1  Matchup? @relation("ally1Relation")
-  ally2  Matchup? @relation("ally2Relation")
-  ally3  Matchup? @relation("ally3Relation")
-  ally4  Matchup? @relation("ally4Relation")
+model GroupMember {
+  groupMemberID Int    @id @default(autoincrement())
+  allyNumber    Int // Values between 1-4 indicating the ally's position
+  role          String @db.VarChar(7)
+  game          Game   @relation(fields: [gameID], references: [matchID], onUpdate: NoAction)
+  gameID        Int
 }

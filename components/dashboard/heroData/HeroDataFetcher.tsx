@@ -1,8 +1,11 @@
 import { findAllGames } from "@/lib/API";
 import { HeroDataProcessing } from "./HeroDataProcessing";
+import { convertNewMatchupToOldType } from "@/functions/convertNewMatchupToOldType";
 
 export default async function HeroDataFetching() {
-  let data = await findAllGames();
+  const data = await findAllGames();
 
-  return <HeroDataProcessing data={data} />;
+  const converted = convertNewMatchupToOldType(data);
+
+  return <HeroDataProcessing data={converted} />;
 }

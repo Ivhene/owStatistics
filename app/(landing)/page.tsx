@@ -12,7 +12,7 @@ export default function Home() {
       <div className="flex flex-col max-w-3xl m-auto bg-main_background text-center shadow-xl shadow-slate-300 border border-slate-300">
         <Navbar />
         <Image
-          src="/landingPageImage.avif"
+          src="https://cdn.discordapp.com/attachments/984872188660297818/1295718601952858173/landingPageImage.png?ex=670fab7b&is=670e59fb&hm=4fe4b969d97d7e5f3c85b4c6985f69d3b217acca81b946ce272056442696df8d&"
           width={500}
           height={300}
           alt="Landing Page Image"
