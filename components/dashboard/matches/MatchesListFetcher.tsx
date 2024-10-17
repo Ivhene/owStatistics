@@ -5,6 +5,10 @@ import { convertNewMatchupToOldType } from "@/functions/convertNewMatchupToOldTy
 export async function MatchesListFetcher() {
   const matches = await findAllGames();
 
+  if (!matches) {
+    return <div>Error</div>;
+  }
+
   const converted = convertNewMatchupToOldType(matches);
 
   return <MatchesList matches={converted} />;

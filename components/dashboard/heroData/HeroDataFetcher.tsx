@@ -5,6 +5,10 @@ import { convertNewMatchupToOldType } from "@/functions/convertNewMatchupToOldTy
 export default async function HeroDataFetching() {
   const data = await findAllGames();
 
+  if (!data) {
+    return <div>Error</div>;
+  }
+
   const converted = convertNewMatchupToOldType(data);
 
   return <HeroDataProcessing data={converted} />;
