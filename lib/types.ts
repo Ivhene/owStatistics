@@ -1,4 +1,5 @@
 export type Hero = {
+  heroID: number;
   name: string;
   image: string;
   role: string;

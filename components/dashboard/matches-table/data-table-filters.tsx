@@ -18,7 +18,7 @@ interface DataTableFiltersProps<TData> {
 
 export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
   function clearFilters() {
-    table.getColumn("map")?.setFilterValue("");
+    table.getColumn("mapName")?.setFilterValue("");
     table.getColumn("role")?.setFilterValue("");
     table.getColumn("result")?.setFilterValue("");
   }
@@ -41,8 +41,10 @@ export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
         </SelectContent>
       </Select>
       <Select
-        value={(table.getColumn("map")?.getFilterValue() as string) ?? ""}
-        onValueChange={(value) => table.getColumn("map")?.setFilterValue(value)}
+        value={(table.getColumn("mapName")?.getFilterValue() as string) ?? ""}
+        onValueChange={(value) =>
+          table.getColumn("mapName")?.setFilterValue(value)
+        }
       >
         <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
           <SelectValue placeholder="Select map" />
@@ -51,6 +53,7 @@ export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
           {selectMaps("")}
         </SelectContent>
       </Select>
+
       <Select
         value={(table.getColumn("result")?.getFilterValue() as string) ?? ""}
         onValueChange={(value) =>

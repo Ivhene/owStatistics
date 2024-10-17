@@ -3,6 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Match, MatchToSave } from "./types";
 import { currentUser } from "@clerk/nextjs/server";
+import { Heroes } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -51,8 +52,15 @@ export async function findHeroByName(name: string) {
 }
 
 export async function findAllGames() {
+  console.log("find");
   try {
     const user = await currentUser();
+    if (!user) {
+      // If user is not authenticated, redirect to the login page
+      window.location.href = "/sign-in";
+      return;
+    }
+
     const games = await prisma.game.findMany({
       include: {
         map: true,
@@ -71,12 +79,24 @@ export async function findAllGames() {
       games.map(async (game) => {
         const resolvedMatchups = await Promise.all(
           game.matchups.map(async (matchup) => {
-            const enemies = await prisma.hero.findMany({
-              where: { heroID: { in: matchup.enemyIDs } },
-            });
-            const allies = await prisma.hero.findMany({
-              where: { heroID: { in: matchup.allyIDs } },
-            });
+            const enemies = matchup.enemyIDs.map(
+              (enemy) =>
+                Heroes.find((h) => h.heroID === enemy) ?? {
+                  heroID: -1,
+                  name: "",
+                  image: "",
+                  role: "",
+                }
+            );
+            const allies = matchup.allyIDs.map(
+              (ally) =>
+                Heroes.find((h) => h.heroID === ally) ?? {
+                  heroID: -1,
+                  name: "",
+                  image: "",
+                  role: "",
+                }
+            );
 
             return {
               ...matchup,
@@ -102,6 +122,7 @@ export async function findAllGames() {
 }
 
 export async function findGame(gameID: number) {
+  console.log("find");
   try {
     const game = await prisma.game.findUnique({
       where: { matchID: gameID },
@@ -148,6 +169,7 @@ export async function findGame(gameID: number) {
 }
 
 export async function addNewGame(match: MatchToSave) {
+  console.log("STARTED ADDING");
   try {
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
@@ -159,25 +181,27 @@ export async function addNewGame(match: MatchToSave) {
       },
     });
 
+    console.log("Game created");
+
     // Ensure all matchup creations are complete before revalidation
     await Promise.all(
       match.matchup.map(async (m) => {
         const res = await prisma.matchup.create({
           data: {
-            heroPlayedID: (await findHeroByName(m.heroPlayed))?.heroID ?? 0,
+            heroPlayedID: Heroes.find((h) => h.name === m.enemy1)?.heroID ?? 0,
             win: m.win,
             enemyIDs: [
-              (await findHeroByName(m.enemy1))?.heroID ?? 0,
-              (await findHeroByName(m.enemy2))?.heroID ?? 0,
-              (await findHeroByName(m.enemy3))?.heroID ?? 0,
-              (await findHeroByName(m.enemy4))?.heroID ?? 0,
-              (await findHeroByName(m.enemy5))?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.enemy1)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.enemy2)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.enemy3)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.enemy4)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.enemy5)?.heroID ?? 0,
             ],
             allyIDs: [
-              (await findHeroByName(m.ally1))?.heroID ?? 0,
-              (await findHeroByName(m.ally2))?.heroID ?? 0,
-              (await findHeroByName(m.ally3))?.heroID ?? 0,
-              (await findHeroByName(m.ally4))?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.ally1)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.ally2)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.ally3)?.heroID ?? 0,
+              Heroes.find((h) => h.name === m.ally4)?.heroID ?? 0,
             ],
             matchID: savedMatch.matchID,
           },
@@ -185,6 +209,7 @@ export async function addNewGame(match: MatchToSave) {
         return res;
       })
     );
+    console.log("?");
   } catch (error) {
     console.error("Error adding new game:", error);
   }
@@ -193,6 +218,9 @@ export async function addNewGame(match: MatchToSave) {
 export async function deleteData() {
   try {
     const data = await findAllGames();
+    if (!data) {
+      return;
+    }
     // Ensure all deletions are complete before revalidation
     await Promise.all(
       data.map(async (match) => {
