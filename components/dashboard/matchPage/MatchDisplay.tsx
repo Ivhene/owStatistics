@@ -11,27 +11,28 @@ import {
 } from "@/components/ui/table";
 import { convertHeroPlayedData } from "@/functions/matchDataMapper";
 import { getMapImage } from "@/functions/nameToImageConverter";
-import { Match } from "@/lib/types";
+import { Map, Match } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Check, Equal, X } from "lucide-react";
 import Image from "next/image";
 
 interface MatchDisplayProps {
   match: Match;
+  map: Map;
 }
 
-export function MatchDisplay({ match }: MatchDisplayProps) {
-  const heroPlayedData = convertHeroPlayedData(match.matchup);
+export function MatchDisplay({ match, map }: MatchDisplayProps) {
+  const heroPlayedData = convertHeroPlayedData(match.matchups);
 
   return (
     <div className="w-full h-full bg-extra_background p-8 space-y-4 flex flex-col">
       <div className="flex flex-row gap-4">
         <div className="bg-main_background w-fit flex flex-col items-center justify-center p-4 gap-4 rounded-xl h-[300px]">
           <h2 className="text-2xl text-overwatch_blue_main font-bold text-center">
-            Match {match.matchID}: {match.map.name}
+            Match {match.matchID}: {match.map}
           </h2>
           <Image
-            src={match.map.image}
+            src={map.image}
             alt="Image of the map"
             width={350}
             height={10}
@@ -139,26 +140,24 @@ export function MatchDisplay({ match }: MatchDisplayProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {match.matchup.map((matchup, index) => (
+            {match.matchups.map((matchup, index) => (
               <TableRow key={index}>
-                <TableCell className="w-1/11">
-                  {matchup.heroPlayed.name}
-                </TableCell>
-                <TableCell className="w-1/11">{matchup.ally1.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally2.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally3.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.ally4.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.heroPlayed}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally1}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally2}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally3}</TableCell>
+                <TableCell className="w-1/11">{matchup.ally4}</TableCell>
                 <TableCell
                   className={cn(
                     "w-[50px]", // Small width for the VS column
                     matchup.win ? "bg-green-400" : "bg-enemy_color"
                   )}
                 ></TableCell>
-                <TableCell className="w-1/11">{matchup.enemy1.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy2.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy3.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy4.name}</TableCell>
-                <TableCell className="w-1/11">{matchup.enemy5.name}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy1}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy2}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy3}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy4}</TableCell>
+                <TableCell className="w-1/11">{matchup.enemy5}</TableCell>
               </TableRow>
             ))}
           </TableBody>

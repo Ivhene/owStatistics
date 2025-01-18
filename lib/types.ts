@@ -12,16 +12,31 @@ export type Map = {
 };
 
 export type Match = {
-  matchID: number;
-  map: Map;
-  result: string;
-  role: string;
-  user1: string;
-  matchup: Matchup[];
-  groupMembers: GroupMember[];
+  matchID: number; // Primary key, corresponds to Game.matchID
+  map: string; // Matches Game.map
+  user1: string; // Matches Game.user1
+  result: string; // Matches Game.result
+  role: string; // Matches Game.role
+  matchups: Matchup[]; // Array of related Matchup records
 };
 
-export type newMatch = {
+export type Matchup = {
+  matchupID: number; // Primary key, corresponds to Matchup.matchupID
+  heroPlayed: string; // Matches Matchup.heroPlayed
+  win: boolean; // Matches Matchup.win
+  enemy1: string; // Matches Matchup.enemy1
+  enemy2: string; // Matches Matchup.enemy2
+  enemy3: string; // Matches Matchup.enemy3
+  enemy4: string; // Matches Matchup.enemy4
+  enemy5: string; // Matches Matchup.enemy5
+  ally1: string; // Matches Matchup.ally1
+  ally2: string; // Matches Matchup.ally2
+  ally3: string; // Matches Matchup.ally3
+  ally4: string; // Matches Matchup.ally4
+  matchID: number; // Foreign key, corresponds to Game.matchID
+};
+
+/* export type newMatch = {
   matchID: number;
   map: Map;
   result: string;
@@ -38,7 +53,7 @@ export type NewMatchup = {
   enemies: Hero[];
   allies: Hero[];
   matchID: number;
-};
+}; */
 
 export type GroupMember = {
   groupMemberID: number;
@@ -52,22 +67,6 @@ export type MatchToSave = {
   role: string;
   map: string;
   matchup: MatchupToSave[];
-};
-
-export type Matchup = {
-  matchupID: number;
-  heroPlayed: Hero;
-  win: boolean;
-  enemy1: Hero;
-  enemy2: Hero;
-  enemy3: Hero;
-  enemy4: Hero;
-  enemy5: Hero;
-  ally1: Hero;
-  ally2: Hero;
-  ally3: Hero;
-  ally4: Hero;
-  matchID: number;
 };
 
 export type MatchupToSave = {

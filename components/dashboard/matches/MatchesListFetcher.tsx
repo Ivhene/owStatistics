@@ -1,6 +1,5 @@
 import { findAllGames } from "@/lib/API";
 import { MatchesList } from "./MatchesList";
-import { convertNewMatchupToOldType } from "@/functions/convertNewMatchupToOldType";
 
 export async function MatchesListFetcher() {
   const matches = await findAllGames();
@@ -9,7 +8,7 @@ export async function MatchesListFetcher() {
     return <div>Error</div>;
   }
 
-  const converted = convertNewMatchupToOldType(matches);
+  // const converted = convertNewMatchupToOldType(matches);
 
-  return <MatchesList matches={converted} />;
+  return <MatchesList matches={matches} />;
 }

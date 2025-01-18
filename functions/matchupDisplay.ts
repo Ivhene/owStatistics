@@ -75,7 +75,7 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
       draws = 0;
 
     matches.forEach((match) => {
-      if (match.map.name === map.name) {
+      if (match.map === map.name) {
         match.result === "win"
           ? wins++
           : match.result === "loss"

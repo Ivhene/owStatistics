@@ -3,7 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Match, MatchToSave } from "./types";
 import { currentUser } from "@clerk/nextjs/server";
-import { Heroes } from "./constants";
+import { Heroes, Maps } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -12,43 +12,28 @@ async function delay(ms: number) {
 }
 
 export async function findAllMaps() {
-  try {
-    const res = await prisma.map.findMany();
-    return res;
-  } catch (error) {
-    console.error("Error fetching all maps:", error);
-  }
+  return Maps;
 }
 
 export async function findMapByName(name: string) {
-  try {
-    const res = await prisma.map.findFirst({
-      where: { name: name },
-    });
-    return res;
-  } catch (error) {
-    console.error("Error fetching map by name:", error);
-  }
+  return (
+    Maps.find((map) => map.name === name) ?? { name: "", image: "", mode: "" }
+  );
 }
 
 export async function findAllHeroes() {
-  try {
-    const res = await prisma.hero.findMany();
-    return res;
-  } catch (error) {
-    console.error("Error fetching all heroes:", error);
-  }
+  return Heroes;
 }
 
 export async function findHeroByName(name: string) {
-  try {
-    const res = await prisma.hero.findFirst({
-      where: { name: name },
-    });
-    return res;
-  } catch (error) {
-    console.error("Error fetching hero by name:", error);
-  }
+  return (
+    Heroes.find((hero) => hero.name === name) ?? {
+      heroID: -1,
+      name: "",
+      image: "",
+      role: "",
+    }
+  );
 }
 
 export async function findAllGames() {
@@ -57,63 +42,18 @@ export async function findAllGames() {
     const user = await currentUser();
     if (!user) {
       // If user is not authenticated, redirect to the login page
-      window.location.href = "/sign-in";
+      window.location.href = "/";
       return;
     }
 
     const games = await prisma.game.findMany({
       include: {
-        map: true,
-        matchups: {
-          include: {
-            heroPlayed: true, // Include Hero for Matchup
-          },
-        },
-        groupMembers: true,
+        matchups: true,
       },
       where: { user1: user?.id },
     });
 
-    // Resolve enemies and allies for each matchup
-    const resolvedGames = await Promise.all(
-      games.map(async (game) => {
-        const resolvedMatchups = await Promise.all(
-          game.matchups.map(async (matchup) => {
-            const enemies = matchup.enemyIDs.map(
-              (enemy) =>
-                Heroes.find((h) => h.heroID === enemy) ?? {
-                  heroID: -1,
-                  name: "",
-                  image: "",
-                  role: "",
-                }
-            );
-            const allies = matchup.allyIDs.map(
-              (ally) =>
-                Heroes.find((h) => h.heroID === ally) ?? {
-                  heroID: -1,
-                  name: "",
-                  image: "",
-                  role: "",
-                }
-            );
-
-            return {
-              ...matchup,
-              enemies,
-              allies,
-            };
-          })
-        );
-
-        return {
-          ...game,
-          matchups: resolvedMatchups,
-        };
-      })
-    );
-
-    return resolvedGames;
+    return games;
   } catch (error) {
     console.error(error);
     await delay(10000);
@@ -122,45 +62,15 @@ export async function findAllGames() {
 }
 
 export async function findGame(gameID: number) {
-  console.log("find");
   try {
     const game = await prisma.game.findUnique({
       where: { matchID: gameID },
       include: {
-        map: true,
-        matchups: {
-          include: {
-            heroPlayed: true, // Include Hero for Matchup
-          },
-        },
-        groupMembers: true,
+        matchups: true,
       },
     });
 
-    if (!game) return null;
-
-    // Resolve enemies and allies for each matchup
-    const resolvedMatchups = await Promise.all(
-      game.matchups.map(async (matchup) => {
-        const enemies = await prisma.hero.findMany({
-          where: { heroID: { in: matchup.enemyIDs } },
-        });
-        const allies = await prisma.hero.findMany({
-          where: { heroID: { in: matchup.allyIDs } },
-        });
-
-        return {
-          ...matchup,
-          enemies,
-          allies,
-        };
-      })
-    );
-
-    return {
-      ...game,
-      matchups: resolvedMatchups,
-    };
+    return game;
   } catch (error) {
     console.error(error);
     await delay(10000);
@@ -174,7 +84,7 @@ export async function addNewGame(match: MatchToSave) {
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
       data: {
-        mapID: (await findMapByName(match.map))?.mapID ?? 0,
+        map: match.map,
         result: match.result,
         role: match.role,
         user1: user?.id ?? "",
@@ -188,21 +98,17 @@ export async function addNewGame(match: MatchToSave) {
       match.matchup.map(async (m) => {
         const res = await prisma.matchup.create({
           data: {
-            heroPlayedID: Heroes.find((h) => h.name === m.enemy1)?.heroID ?? 0,
+            heroPlayed: m.heroPlayed,
             win: m.win,
-            enemyIDs: [
-              Heroes.find((h) => h.name === m.enemy1)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.enemy2)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.enemy3)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.enemy4)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.enemy5)?.heroID ?? 0,
-            ],
-            allyIDs: [
-              Heroes.find((h) => h.name === m.ally1)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.ally2)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.ally3)?.heroID ?? 0,
-              Heroes.find((h) => h.name === m.ally4)?.heroID ?? 0,
-            ],
+            enemy1: m.enemy1,
+            enemy2: m.enemy2,
+            enemy3: m.enemy3,
+            enemy4: m.enemy4,
+            enemy5: m.enemy5,
+            ally1: m.ally1,
+            ally2: m.ally2,
+            ally3: m.ally3,
+            ally4: m.ally4,
             matchID: savedMatch.matchID,
           },
         });
@@ -246,7 +152,7 @@ export async function deleteMatches(matches: Match[]) {
   await Promise.all(
     matches.map(async (match: Match) => {
       await Promise.all(
-        match.matchup.map(async (matchup) => {
+        match.matchups.map(async (matchup) => {
           await prisma.matchup.delete({
             where: { matchupID: matchup.matchupID },
           });

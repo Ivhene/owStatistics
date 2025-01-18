@@ -35,7 +35,7 @@ export const columns: ColumnDef<Match>[] = [
   },
   {
     // Flatten the map field for easier access
-    accessorFn: (row) => row.map.name, // Or row?.map?.name to avoid undefined errors
+    accessorFn: (row) => row.map,
     id: "mapName", // Assign a custom ID since accessorFn doesn't automatically generate one
     header: ({ column }) => (
       <Button

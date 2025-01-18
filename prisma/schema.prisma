@@ -8,54 +8,28 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Hero {
-  heroID   Int       @id @default(autoincrement())
-  name     String    @db.VarChar(40)
-  image    String    @db.VarChar(255)
-  role     String    @db.VarChar(7)
-  matchups Matchup[] @relation("HeroPlayed")
-  enemies  Matchup[] @relation("HeroEnemies")
-  allies   Matchup[] @relation("HeroAllies")
-}
-
-model Map {
-  mapID Int    @id @default(autoincrement())
-  name  String @db.VarChar(40)
-  image String @db.VarChar(255)
-  mode  String @db.VarChar(40)
-  games Game[]
-}
-
 model Game {
-  matchID      Int           @id @default(autoincrement())
-  map          Map           @relation(fields: [mapID], references: [mapID], onUpdate: NoAction)
-  user1        String        @db.VarChar(100)
-  result       String        @db.VarChar(4)
-  role         String        @db.VarChar(7)
-  matchups     Matchup[]
-  groupMembers GroupMember[]
-  mapID        Int
+  matchID  Int       @id @default(autoincrement())
+  map      String    @db.VarChar(255)
+  user1    String    @db.VarChar(255)
+  result   String    @db.VarChar(4)
+  role     String    @db.VarChar(7)
+  matchups Matchup[]
 }
 
 model Matchup {
   matchupID  Int     @id @default(autoincrement())
-  heroPlayed Hero    @relation("HeroPlayed", fields: [heroPlayedID], references: [heroID], onUpdate: NoAction)
+  heroPlayed String  @db.VarChar(255)
   win        Boolean
-  enemies    Hero[]  @relation("HeroEnemies")
-  allies     Hero[]  @relation("HeroAllies")
+  enemy1     String  @db.VarChar(255)
+  enemy2     String  @db.VarChar(255)
+  enemy3     String  @db.VarChar(255)
+  enemy4     String  @db.VarChar(255)
+  enemy5     String  @db.VarChar(255)
+  ally1      String  @db.VarChar(255)
+  ally2      String  @db.VarChar(255)
+  ally3      String  @db.VarChar(255)
+  ally4      String  @db.VarChar(255)
   matchID    Int
-  game       Game    @relation(fields: [matchID], references: [matchID], onUpdate: NoAction)
-
-  // Foreign keys for the related models
-  heroPlayedID Int
-  enemyIDs     Int[]
-  allyIDs      Int[]
-}
-
-model GroupMember {
-  groupMemberID Int    @id @default(autoincrement())
-  allyNumber    Int // Values between 1-4 indicating the ally's position
-  role          String @db.VarChar(7)
-  game          Game   @relation(fields: [gameID], references: [matchID], onUpdate: NoAction)
-  gameID        Int
+  game       Game    @relation(fields: [matchID], references: [matchID], onDelete: NoAction, onUpdate: NoAction, map: "FK__Matchup__matchID__71D1E811")
 }

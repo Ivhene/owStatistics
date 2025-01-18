@@ -37,7 +37,7 @@ export function selectMaps(maptype: string, matches?: Match[]) {
 
   for (const map of maps) {
     const matchesOnMap = matches
-      ? matches.filter((match) => match.map.name === map.name).length
+      ? matches.filter((match) => match.map === map.name).length
       : -1;
     res.push(
       <div className="flex justify-between items-center" key={map.name}>

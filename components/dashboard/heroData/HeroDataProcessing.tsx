@@ -24,7 +24,7 @@ import { Label } from "../../ui/label";
 import { X } from "lucide-react";
 
 interface HeroDataProps {
-  data: Match[];
+  data: MatchupWithMaps[];
 }
 
 export function HeroDataProcessing({ data }: HeroDataProps) {
@@ -36,16 +36,11 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectTarget: "you",
   });
 
-  const initialMatchups = addMatchToMatchup(data);
-
-  const [matchups, setMatchups] = useState<MatchupWithMaps[]>(initialMatchups);
+  const [matchups, setMatchups] = useState<MatchupWithMaps[]>(data);
   const [displayData, setDisplayData] = useState<MatchupWithMaps[]>(matchups);
 
   useEffect(() => {
-    let filteredMatchups = changeTarget(
-      filterStates.selectTarget,
-      initialMatchups
-    );
+    let filteredMatchups = changeTarget(filterStates.selectTarget, data);
     setMatchups(filteredMatchups);
     if (filterStates.selectHeroPlayed !== "") {
       filteredMatchups = filterByHero(
@@ -56,14 +51,13 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     }
     if (filterStates.selectMap !== "") {
       filteredMatchups = filteredMatchups.filter(
-        (matchup) => matchup.match.map.name === filterStates.selectMap
+        (matchup) => matchup.match.map === filterStates.selectMap
       );
     }
     if (filterStates.selectMapType !== "") {
       filteredMatchups = filteredMatchups.filter(
         (matchup) =>
-          findMaptypeOfMap(matchup.match.map.name) ===
-          filterStates.selectMapType
+          findMaptypeOfMap(matchup.match.map) === filterStates.selectMapType
       );
     }
     setDisplayData(filteredMatchups);
