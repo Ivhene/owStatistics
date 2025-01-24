@@ -31,5 +31,6 @@ model Matchup {
   ally3      String  @db.VarChar(255)
   ally4      String  @db.VarChar(255)
   matchID    Int
+  order      Int
   game       Game    @relation(fields: [matchID], references: [matchID], onDelete: NoAction, onUpdate: NoAction, map: "FK__Matchup__matchID__71D1E811")
 }

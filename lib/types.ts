@@ -33,6 +33,7 @@ export type Matchup = {
   ally2: string; // Matches Matchup.ally2
   ally3: string; // Matches Matchup.ally3
   ally4: string; // Matches Matchup.ally4
+  order: number;
   matchID: number; // Foreign key, corresponds to Game.matchID
 };
 

@@ -12,6 +12,8 @@ export async function MatchFetcher({ matchID }: MatchFetcher) {
     return <div>Match does not exist or you do not have access to match</div>;
   }
 
+  match.matchups.sort((a, b) => a.order - b.order);
+
   const map = await findMapByName(match.map);
 
   // const converted = convertNewMatchupToOldType([match]);

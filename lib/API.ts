@@ -37,7 +37,6 @@ export async function findHeroByName(name: string) {
 }
 
 export async function findAllGames() {
-  console.log("find");
   try {
     const user = await currentUser();
     if (!user) {
@@ -84,7 +83,6 @@ export async function findGame(gameID: number) {
 }
 
 export async function addNewGame(match: MatchToSave) {
-  console.log("STARTED ADDING");
   try {
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
@@ -96,11 +94,9 @@ export async function addNewGame(match: MatchToSave) {
       },
     });
 
-    console.log("Game created");
-
     // Ensure all matchup creations are complete before revalidation
     await Promise.all(
-      match.matchup.map(async (m) => {
+      match.matchup.map(async (m, index) => {
         const res = await prisma.matchup.create({
           data: {
             heroPlayed: m.heroPlayed,
@@ -114,13 +110,13 @@ export async function addNewGame(match: MatchToSave) {
             ally2: m.ally2,
             ally3: m.ally3,
             ally4: m.ally4,
+            order: index,
             matchID: savedMatch.matchID,
           },
         });
         return res;
       })
     );
-    console.log("?");
   } catch (error) {
     console.error("Error adding new game:", error);
   }

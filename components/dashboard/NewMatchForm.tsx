@@ -34,7 +34,7 @@ import { useState, useEffect } from "react";
 import { MatchToSave, MatchupToSave } from "@/lib/types";
 import React from "react";
 import { addNewGame } from "@/lib/API";
-import { Table, TableCell, TableRow } from "../ui/table";
+import { Table, TableBody, TableCell, TableRow } from "../ui/table";
 
 interface NewMatchFormProps {
   close: () => void;
@@ -272,33 +272,35 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       </div>
       <div className="flex-grow overflow-y-auto mt-6 mb-16">
         <Table>
-          {matchups.map((matchup, index) => (
-            <TableRow className="text-sm text-white" key={index}>
-              {matchup.win ? (
-                <TableCell className="font-light bg-blue-600">Win</TableCell>
-              ) : (
-                <TableCell className="font-light bg-red-600">Loss</TableCell>
-              )}
-              <TableCell className="bg-green-600">
-                {matchup.heroPlayed}
-              </TableCell>
-              <TableCell className="bg-cyan-400">{matchup.ally1}</TableCell>
-              <TableCell className="bg-cyan-400">{matchup.ally2}</TableCell>
-              <TableCell className="bg-cyan-400">{matchup.ally3}</TableCell>
-              <TableCell className="bg-cyan-400">{matchup.ally4}</TableCell>
-              <TableCell className="bg-red-900">{matchup.enemy1}</TableCell>
-              <TableCell className="bg-red-900">{matchup.enemy2}</TableCell>
-              <TableCell className="bg-red-900">{matchup.enemy3}</TableCell>
-              <TableCell className="bg-red-900">{matchup.enemy4}</TableCell>
-              <TableCell className="bg-red-900">{matchup.enemy5}</TableCell>
-              <TableCell
-                onClick={() => DeleteMatchup(matchup)}
-                className="bg-red-600 cursor-pointer"
-              >
-                <Trash />
-              </TableCell>
-            </TableRow>
-          ))}
+          <TableBody>
+            {matchups.map((matchup, index) => (
+              <TableRow className="text-sm text-white" key={index}>
+                {matchup.win ? (
+                  <TableCell className="font-light bg-blue-600">Win</TableCell>
+                ) : (
+                  <TableCell className="font-light bg-red-600">Loss</TableCell>
+                )}
+                <TableCell className="bg-green-600">
+                  {matchup.heroPlayed}
+                </TableCell>
+                <TableCell className="bg-cyan-400">{matchup.ally1}</TableCell>
+                <TableCell className="bg-cyan-400">{matchup.ally2}</TableCell>
+                <TableCell className="bg-cyan-400">{matchup.ally3}</TableCell>
+                <TableCell className="bg-cyan-400">{matchup.ally4}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy1}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy2}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy3}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy4}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy5}</TableCell>
+                <TableCell
+                  onClick={() => DeleteMatchup(matchup)}
+                  className="bg-red-600 cursor-pointer"
+                >
+                  <Trash />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </div>
     </div>
