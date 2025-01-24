@@ -56,8 +56,7 @@ export async function findAllGames() {
     return games;
   } catch (error) {
     console.error(error);
-    await delay(10000);
-    return findAllGames();
+    return [];
   }
 }
 
@@ -73,8 +72,14 @@ export async function findGame(gameID: number) {
     return game;
   } catch (error) {
     console.error(error);
-    await delay(10000);
-    return findGame(gameID);
+    const game: Match = {
+      matchID: -1,
+      map: "",
+      matchups: [],
+      user1: "",
+      role: "",
+      result: "",
+    };
   }
 }
 
