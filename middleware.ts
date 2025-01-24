@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher(["/"]);
 
-export default clerkMiddleware((auth, req) => {
-  const { userId, redirectToSignIn } = auth();
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, redirectToSignIn } = await auth();
 
   if (!userId && !isPublicRoute(req))
     return redirectToSignIn({ returnBackUrl: req.url });
