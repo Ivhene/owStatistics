@@ -270,7 +270,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
           </form>
         </Form>
       </div>
-      <div className="flex-grow overflow-y-auto mt-6 mb-16">
+      <div className="grow overflow-y-auto mt-6 mb-16">
         <Table>
           <TableBody>
             {matchups.map((matchup, index) => (

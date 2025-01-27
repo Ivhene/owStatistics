@@ -62,7 +62,7 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
             )}
           </div>
         </div>
-        <div className="bg-main_background flex-grow flex flex-col items-center  p-4 gap-4 rounded-xl h-[300px] overflow-auto">
+        <div className="bg-main_background grow flex flex-col items-center  p-4 gap-4 rounded-xl h-[300px] overflow-auto">
           <h2 className="text-2xl text-overwatch_blue_main font-bold text-center">
             Heroes played ({heroPlayedData.length})
           </h2>
