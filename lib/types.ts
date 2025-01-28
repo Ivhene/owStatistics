@@ -111,6 +111,7 @@ export type DisplayMap = {
   wins: number;
   losses: number;
   draws: number;
+  matchups: Matchup[];
 };
 
 export type HeroPlayedData = {

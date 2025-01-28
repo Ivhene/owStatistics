@@ -1,5 +1,11 @@
 import { Heroes, Maps } from "@/lib/constants";
-import { Display, DisplayMap, Match, MatchupWithMaps } from "@/lib/types";
+import {
+  Display,
+  DisplayMap,
+  Match,
+  Matchup,
+  MatchupWithMaps,
+} from "@/lib/types";
 
 export function displayByRoleAgainst(
   role: string,
@@ -72,7 +78,8 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
   maps.forEach((map) => {
     let wins = 0,
       losses = 0,
-      draws = 0;
+      draws = 0,
+      matchups: Matchup[] = [];
 
     matches.forEach((match) => {
       if (match.map === map.name) {
@@ -81,9 +88,16 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
           : match.result === "loss"
           ? losses++
           : draws++;
+        matchups = [...matchups, ...match.matchups];
       }
     });
-    display.push({ map: map.image, wins: wins, losses: losses, draws: draws });
+    display.push({
+      map: map.image,
+      wins: wins,
+      losses: losses,
+      draws: draws,
+      matchups: matchups,
+    });
   });
 
   return display;
