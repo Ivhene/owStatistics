@@ -1,5 +1,6 @@
-import { findAllGames, findHeroByName } from "@/lib/API";
+import { findAllGames } from "@/lib/API";
 import { Match, Matchup, MatchupWithMaps } from "@/lib/types";
+import { findHeroByName } from "./findNonAsync";
 
 export function addMatchToMatchup(matches: Match[]) {
   let matchups: MatchupWithMaps[] = [];
@@ -8,21 +9,45 @@ export function addMatchToMatchup(matches: Match[]) {
     match.matchups.forEach(async (matchup) => {
       matchups.push({
         matchupID: matchup.matchupID,
-        heroPlayed: await findHeroByName(matchup.heroPlayed),
+        heroPlayed: findHeroByName(matchup.heroPlayed),
         win: matchup.win,
-        ally1: await findHeroByName(matchup.ally1),
-        ally2: await findHeroByName(matchup.ally2),
-        ally3: await findHeroByName(matchup.ally3),
-        ally4: await findHeroByName(matchup.ally4),
-        enemy1: await findHeroByName(matchup.enemy1),
-        enemy2: await findHeroByName(matchup.enemy2),
-        enemy3: await findHeroByName(matchup.enemy3),
-        enemy4: await findHeroByName(matchup.enemy4),
-        enemy5: await findHeroByName(matchup.enemy5),
+        ally1: findHeroByName(matchup.ally1),
+        ally2: findHeroByName(matchup.ally2),
+        ally3: findHeroByName(matchup.ally3),
+        ally4: findHeroByName(matchup.ally4),
+        enemy1: findHeroByName(matchup.enemy1),
+        enemy2: findHeroByName(matchup.enemy2),
+        enemy3: findHeroByName(matchup.enemy3),
+        enemy4: findHeroByName(matchup.enemy4),
+        enemy5: findHeroByName(matchup.enemy5),
         match: match,
       });
     })
   );
+
+  return matchups;
+}
+
+export function addMatchToMatchupSingle(match: Match) {
+  let matchups: MatchupWithMaps[] = [];
+
+  match.matchups.forEach(async (matchup) => {
+    matchups.push({
+      matchupID: matchup.matchupID,
+      heroPlayed: findHeroByName(matchup.heroPlayed),
+      win: matchup.win,
+      ally1: findHeroByName(matchup.ally1),
+      ally2: findHeroByName(matchup.ally2),
+      ally3: findHeroByName(matchup.ally3),
+      ally4: findHeroByName(matchup.ally4),
+      enemy1: findHeroByName(matchup.enemy1),
+      enemy2: findHeroByName(matchup.enemy2),
+      enemy3: findHeroByName(matchup.enemy3),
+      enemy4: findHeroByName(matchup.enemy4),
+      enemy5: findHeroByName(matchup.enemy5),
+      match: match,
+    });
+  });
 
   return matchups;
 }
@@ -34,17 +59,17 @@ export async function addMatchToMatchups(matchups: Matchup[]) {
   matchups.forEach(async (matchup) => {
     matchupsWithMatch.push({
       matchupID: matchup.matchupID,
-      heroPlayed: await findHeroByName(matchup.heroPlayed),
+      heroPlayed: findHeroByName(matchup.heroPlayed),
       win: matchup.win,
-      ally1: await findHeroByName(matchup.ally1),
-      ally2: await findHeroByName(matchup.ally2),
-      ally3: await findHeroByName(matchup.ally3),
-      ally4: await findHeroByName(matchup.ally4),
-      enemy1: await findHeroByName(matchup.enemy1),
-      enemy2: await findHeroByName(matchup.enemy2),
-      enemy3: await findHeroByName(matchup.enemy3),
-      enemy4: await findHeroByName(matchup.enemy4),
-      enemy5: await findHeroByName(matchup.enemy5),
+      ally1: findHeroByName(matchup.ally1),
+      ally2: findHeroByName(matchup.ally2),
+      ally3: findHeroByName(matchup.ally3),
+      ally4: findHeroByName(matchup.ally4),
+      enemy1: findHeroByName(matchup.enemy1),
+      enemy2: findHeroByName(matchup.enemy2),
+      enemy3: findHeroByName(matchup.enemy3),
+      enemy4: findHeroByName(matchup.enemy4),
+      enemy5: findHeroByName(matchup.enemy5),
       match: games?.find((match) => match.matchID === matchup.matchID) ?? {
         matchID: -1,
         map: "",

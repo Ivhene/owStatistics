@@ -6,6 +6,10 @@ import {
   Matchup,
   MatchupWithMaps,
 } from "@/lib/types";
+import {
+  addMatchToMatchup,
+  addMatchToMatchupSingle,
+} from "./addMatchToMatchup";
 
 export function displayByRoleAgainst(
   role: string,
@@ -79,7 +83,7 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
     let wins = 0,
       losses = 0,
       draws = 0,
-      matchups: Matchup[] = [];
+      matchups: MatchupWithMaps[] = [];
 
     matches.forEach((match) => {
       if (match.map === map.name) {
@@ -88,7 +92,7 @@ export function displayMaps(maptype: string, role: string, matches: Match[]) {
           : match.result === "loss"
           ? losses++
           : draws++;
-        matchups = [...matchups, ...match.matchups];
+        matchups = [...matchups, ...addMatchToMatchupSingle(match)];
       }
     });
     display.push({

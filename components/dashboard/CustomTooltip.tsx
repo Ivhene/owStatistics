@@ -15,7 +15,6 @@ import {
   TableRow,
 } from "../ui/table";
 import { Progress } from "../ui/progress";
-import { addMatchToMatchup } from "@/functions/addMatchToMatchup";
 
 export function CustomTooltip(props: any) {
   const path = usePathname();
@@ -28,14 +27,39 @@ export function CustomTooltip(props: any) {
     return null;
   }
 
-  let matchups: Matchup[] = [];
+  let matchups: MatchupWithMaps[] = [];
   props.payload.forEach(
     (prop: any) => (matchups = [...matchups, ...prop.payload.matchups])
   );
 
-  const matchupsWithMatch = "";
+  const matchupWithoutMap: Matchup[] = matchups.map((matchup, index) => {
+    return {
+      matchID: matchup.matchupID,
+      heroPlayed: matchup.heroPlayed.name,
+      matchupID: matchup.matchupID,
+      win: matchup.win,
+      ally1: matchup.ally1.name,
+      ally2: matchup.ally2.name,
+      ally3: matchup.ally3.name,
+      ally4: matchup.ally4.name,
+      enemy1: matchup.enemy1.name,
+      enemy2: matchup.enemy2.name,
+      enemy3: matchup.enemy3.name,
+      enemy4: matchup.enemy4.name,
+      enemy5: matchup.enemy5.name,
+      order: index,
+    };
+  });
 
-  const heroPlayedData = convertHeroPlayedData(matchups);
+  const matches = matchups
+    .map((matchup) => matchup.match.matchID)
+    .filter((matchID, index, self) => self.indexOf(matchID) === index); // gets rid of duplicates
+
+  console.log(matches);
+
+  const matchupsWithMatch = matchups;
+
+  const heroPlayedData = convertHeroPlayedData(matchupWithoutMap);
 
   let against;
 
@@ -104,7 +128,16 @@ export function CustomTooltip(props: any) {
         </div>
       </div>
       {path === "/mypage/maps" ? null : <div>Other heroes against/with</div>}
-      <div>Links to matches</div>
+      <div className="w-full flex flex-col items-center">
+        <h2 className="text-2xl text-overwatch_blue_main font-bold text-center">
+          From matches
+        </h2>
+        <div className="grid grid-cols-1 gap-4 justify-items-center w-full">
+          {matches.map((match, index) => (
+            <p key={index}>[{match}]</p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

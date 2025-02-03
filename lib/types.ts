@@ -37,25 +37,6 @@ export type Matchup = {
   matchID: number; // Foreign key, corresponds to Game.matchID
 };
 
-/* export type newMatch = {
-  matchID: number;
-  map: Map;
-  result: string;
-  role: string;
-  user1: string;
-  matchups: NewMatchup[];
-  groupMembers: GroupMember[];
-};
-
-export type NewMatchup = {
-  matchupID: number;
-  heroPlayed: Hero;
-  win: boolean;
-  enemies: Hero[];
-  allies: Hero[];
-  matchID: number;
-}; */
-
 export type GroupMember = {
   groupMemberID: number;
   allyNumber: number;
@@ -111,7 +92,7 @@ export type DisplayMap = {
   wins: number;
   losses: number;
   draws: number;
-  matchups: Matchup[];
+  matchups: MatchupWithMaps[];
 };
 
 export type HeroPlayedData = {
