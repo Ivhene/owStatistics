@@ -7,10 +7,14 @@ export function convertHeroPlayedData(matchups: Matchup[]) {
   const heroPlayedData: HeroPlayedData[] = [];
 
   Heroes.forEach((hero) => {
-    let count = 0;
+    let count = 0,
+      win = 0;
     matchups.forEach((matchup) => {
       if (matchup.heroPlayed === hero.name) {
         count++;
+        if (matchup.win) {
+          win++;
+        }
       }
     });
 
@@ -19,6 +23,8 @@ export function convertHeroPlayedData(matchups: Matchup[]) {
         name: hero.name,
         image: hero.image,
         percentagePlayed: (count / matchupCount) * 100,
+        wins: win,
+        losses: count - win,
       });
     }
   });

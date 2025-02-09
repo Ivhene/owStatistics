@@ -99,4 +99,6 @@ export type HeroPlayedData = {
   name: string;
   image: string;
   percentagePlayed: number;
+  wins: number;
+  losses: number;
 };
