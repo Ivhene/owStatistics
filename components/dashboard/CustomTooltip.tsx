@@ -6,15 +6,6 @@ import { HeroPlayedData, Matchup, MatchupWithMaps } from "@/lib/types";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
-import { Progress } from "../ui/progress";
 import { cn } from "@/lib/utils";
 
 export function CustomTooltip(props: any) {
@@ -54,8 +45,6 @@ export function CustomTooltip(props: any) {
 
   const heroPlayedData = convertHeroPlayedData(matchupWithoutMap);
 
-  let against;
-
   let heroPlayedDataRowed: HeroPlayedData[][] = [];
 
   const rowSize = 6;
@@ -89,8 +78,8 @@ export function CustomTooltip(props: any) {
               <h2>Hero</h2>
               <Image
                 alt="Image of hero"
-                width={250}
-                height={250}
+                width={35}
+                height={35}
                 src={props.label}
               />
             </React.Fragment>

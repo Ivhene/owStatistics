@@ -24,7 +24,8 @@ export function displayByRoleAgainst(
 
   heroes.forEach((hero) => {
     let wins = 0,
-      losses = 0;
+      losses = 0,
+      heroMatchups: MatchupWithMaps[] = [];
 
     matchups.forEach((matchup) => {
       if (
@@ -35,9 +36,15 @@ export function displayByRoleAgainst(
         matchup.enemy5.name === hero.name
       ) {
         matchup.win ? wins++ : losses++;
+        heroMatchups.push(matchup);
       }
     });
-    display.push({ hero: hero.image, wins: wins, losses: losses });
+    display.push({
+      hero: hero.image,
+      wins: wins,
+      losses: losses,
+      matchups: heroMatchups,
+    });
   });
 
   return display;
@@ -53,7 +60,8 @@ export function displayByRoleWith(role: string, matchups: MatchupWithMaps[]) {
 
   heroes.forEach((hero) => {
     let wins = 0,
-      losses = 0;
+      losses = 0,
+      heroMatchups: MatchupWithMaps[] = [];
 
     matchups.forEach((matchup) => {
       if (
@@ -63,9 +71,15 @@ export function displayByRoleWith(role: string, matchups: MatchupWithMaps[]) {
         matchup.ally4.name === hero.name
       ) {
         matchup.win ? wins++ : losses++;
+        heroMatchups.push(matchup);
       }
     });
-    display.push({ hero: hero.image, wins: wins, losses: losses });
+    display.push({
+      hero: hero.image,
+      wins: wins,
+      losses: losses,
+      matchups: heroMatchups,
+    });
   });
 
   return display;

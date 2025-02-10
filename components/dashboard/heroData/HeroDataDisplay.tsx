@@ -5,6 +5,7 @@ import {
   Legend,
   Rectangle,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
@@ -15,6 +16,7 @@ import {
 } from "@/functions/matchupDisplay";
 import { MatchupWithMaps } from "@/lib/types";
 import { usePathname } from "next/navigation";
+import { CustomTooltip } from "../CustomTooltip";
 
 interface HeroDataDisplayProps {
   data: MatchupWithMaps[];
@@ -40,7 +42,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
             tick={<CategoryTick />}
           />
           <YAxis />
-          {/*<Tooltip content={<CustomTooltip matchups={data} />} />*/}
+          <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="top" />
           <Bar
             dataKey="wins"
